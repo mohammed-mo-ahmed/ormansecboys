@@ -1,0 +1,238 @@
+{
+  "navigation": {
+    "about": "About",
+    "overview": "Overview",
+    "vision": "Vision & Mission",
+    "history": "History",
+    "teachers": "Teachers",
+    "activities": "Extracurriculars",
+    "student-union": "Student Union",
+    "clubs": "Clubs",
+    "competitions": "Competitions",
+    "library": "Al-Orman Library",
+    "achievements": "Achievements",
+    "resources": "Learning Resources",
+    "news": "News",
+    "gallery": "Gallery",
+    "alumni": "Alumni",
+    "faq": "FAQ & Testimonials",
+    "contact": "Contact"
+  },
+  "footer": {
+    "schoolName": "Al-Orman Secondary School for Boys",
+    "description": "A distinguished educational institution combining academic education and military training",
+    "quickLinks": "Quick Links",
+    "contactUs": "Contact Us",
+    "address": "3 Madares St., Dokki, Giza, Egypt",
+    "copyright": "© 2025 Al-Orman Secondary School for Boys. All rights reserved.",
+    "developedBy": "Developed by",
+    "developerName": "Mohammed Mohammed Yousuf",
+    "developerRole": "Student at School",
+    "developerWhatsapp": "https://api.whatsapp.com/send/?phone=201119819885",
+    "links": {
+      "resources": "Learning Resources",
+      "news": "News",
+      "gallery": "Gallery",
+      "alumni": "Alumni",
+      "faq": "FAQ & Testimonials"
+    }
+  },
+  "common": {
+    "switchLang": "عربي",
+    "logoAlt": "School Logo"
+  },
+  "home": {
+    "meta": {
+      "title": "Al-Orman Secondary School for Boys",
+      "description": "Al-Orman Secondary School for Boys offers a unique educational experience combining academics and military discipline."
+    },
+    "hero": {
+      "title": "Al-Orman Secondary School for Boys",
+      "subtitle": "We strive to graduate distinguished individuals combining academic excellence and military discipline",
+      "discoverMore": "Discover More",
+      "contactUs": "Contact Us"
+    },
+    "features": {
+      "sectionTitle": "What is Al-Orman School?",
+      "sectionSubtitle": "We offer a unique educational experience combining academics and military training",
+      "education":    { "title": "Excellent Education",      "description": "Advanced academic programs meeting the latest standards" },
+      "military":     { "title": "Military Education",       "description": "Comprehensive military education for leadership development" },
+      "activities":   { "title": "Diverse Activities",       "description": "Wide range of extracurricular activities" },
+      "achievements": { "title": "Outstanding Achievements", "description": "Rich history of achievements and awards" },
+      "resources":    { "title": "Learning Resources",       "description": "Comprehensive library and modern digital resources" },
+      "vision":       { "title": "Clear Vision",             "description": "Clear vision for building the future generation" }
+    },
+    "stats": {
+      "years":    "Years of Excellence",
+      "students": "Students",
+      "teachers": "Teachers",
+      "awards":   "Awards"
+    }
+  },
+  "news": {
+    "meta": {
+      "title": "News & Announcements - Al-Orman School",
+      "description": "Latest news and events from Al-Orman Secondary School for Boys."
+    },
+    "title": "News & Announcements",
+    "subtitle": "Latest news and events from Al-Orman School",
+    "readMore": "Read More"
+  },
+  "gallery": {
+    "meta": {
+      "title": "Gallery - Al-Orman Secondary School for Boys",
+      "description": "Explore photos and videos of school life and events at Al-Orman Secondary School for Boys."
+    },
+    "title": "Gallery",
+    "subtitle": "Explore photos and videos of school life and events",
+    "tabs": { "photos": "Photos", "videos": "Videos" },
+    "closeLabel": "Close"
+  },
+  "contact": {
+    "meta": {
+      "title": "Contact Us - Al-Orman Secondary School for Boys",
+      "description": "Contact Al-Orman Secondary School for Boys via phone, email, or visit us in Dokki, Giza."
+    },
+    "title": "Contact Us",
+    "subtitle": "We are here to answer your questions and help you",
+    "info": {
+      "sectionTitle": "Contact Information",
+      "address":  { "label": "Address",       "value": "3 Madares St., Dokki, Giza, Egypt" },
+      "phone":    { "label": "Phone" },
+      "email":    { "label": "Email" },
+      "hours":    {
+        "label":    "Working Hours",
+        "weekdays": "Sunday - Thursday: 8:00 AM - 2:00 PM",
+        "weekend":  "Friday and Saturday: Closed"
+      }
+    },
+    "mapTitle": "School Location on Map"
+  },
+  "faq": {
+    "meta": {
+      "title": "FAQ - Al-Orman Secondary School for Boys",
+      "description": "Answers to the most common questions about Al-Orman Secondary School for Boys."
+    },
+    "title": "Frequently Asked Questions",
+    "subtitle": "Answers to the most common questions about the school",
+    "testimonials": {
+      "title": "Testimonials",
+      "subtitle": "What our students, parents, and teachers say"
+    },
+    "cta": {
+      "title": "Have Another Question?",
+      "subtitle": "Feel free to contact us for more information",
+      "button": "Contact Us"
+    }
+  },
+  "alumni": {
+    "meta": {
+      "title": "Our Alumni - Al-Orman Secondary School for Boys",
+      "description": "Meet our alumni and their outstanding achievements across various fields."
+    },
+    "title": "Our Alumni",
+    "subtitle": "Proud of our alumni achievements who excel in various fields",
+    "stat": { "label": "Alumni" },
+    "successStories": "Success Stories"
+  },
+  "about": {
+    "overview": {
+      "meta": { "title": "Overview - Al-Orman School", "description": "Al-Orman Secondary School for Boys provides outstanding education and comprehensive military training" },
+      "title": "Overview",
+      "subtitle": "Al-Orman Secondary School for Boys is a leading educational institution combining outstanding academic education with comprehensive military training to prepare a generation of distinguished leaders",
+      "academic": { "title": "Academic Excellence", "description": "We provide advanced educational programs aligned with the latest global standards, focusing on developing critical thinking and creativity skills" },
+      "military": { "title": "Military Training", "description": "A comprehensive military training program aimed at building leadership character and reinforcing values of discipline and responsibility" },
+      "values": {
+        "title": "Our Core Values",
+        "excellence": { "title": "Excellence",  "subtitle": "In everything we do" },
+        "discipline": { "title": "Discipline",  "subtitle": "Foundation of success" },
+        "leadership": { "title": "Leadership",  "subtitle": "We build leaders" }
+      }
+    },
+    "vision": {
+      "meta": { "title": "Vision & Mission - Al-Orman School", "description": "Learn about the vision, mission and goals of Al-Orman Secondary School for Boys" },
+      "title": "Vision & Mission",
+      "vision":  { "title": "Our Vision",  "content": "To be the leading educational institution in Egypt and the Arab world, graduating a generation of distinguished leaders who combine knowledge, ethics, and discipline" },
+      "mission": { "title": "Our Mission", "content": "Providing distinguished education combining academics and military training, and developing students' intellectual, physical, and moral capabilities to prepare them to lead the future" },
+      "goals": {
+        "title": "Our Strategic Goals",
+        "items": [
+          "Achieving academic excellence in all fields",
+          "Building leadership personalities capable of facing challenges",
+          "Reinforcing ethical and national values",
+          "Developing practical and applied skills",
+          "Preparing students for success in university and professional life"
+        ]
+      }
+    },
+    "history": {
+      "meta": { "title": "Our History - Al-Orman School", "description": "The history of Al-Orman Secondary School from founding to the present day" },
+      "title": "Our History",
+      "subtitle": "A journey of excellence and achievements through the years",
+      "milestones": [
+        { "year": "1944", "title": "Foundation",    "description": "School founded with an ambitious vision to provide distinguished education" },
+        { "year": "",     "title": "Expansion",     "description": "Opening of new facilities and modern laboratories" },
+        { "year": "",     "title": "Accreditation", "description": "Obtaining accreditation for educational quality" },
+        { "year": "",     "title": "Achievements",  "description": "Winning numerous academic and sports awards" },
+        { "year": "2025", "title": "Present",       "description": "Continuing excellence with over 3,000 students and 50 teachers" }
+      ]
+    },
+    "teachers": {
+      "meta": { "title": "Our Teachers - Al-Orman School", "description": "Meet the distinguished teaching staff at Al-Orman Secondary School for Boys" },
+      "title": "Our Teachers",
+      "subtitle": "A team of distinguished teachers with high experience and competence"
+    }
+  },
+  "resources": {
+    "meta": { "title": "Learning Resources - Al-Orman School", "description": "A comprehensive collection of educational resources to support your academic journey." },
+    "title": "Learning Resources",
+    "subtitle": "A comprehensive collection of educational resources to support your academic journey",
+    "platformsTitle": "Learning Platforms"
+  },
+  "activities": {
+    "clubs": {
+      "meta": { "title": "Clubs - Al-Orman Secondary School for Boys", "description": "Explore the diverse clubs at Al-Orman School to develop students' skills." },
+      "title": "Clubs",
+      "subtitle": "A diverse range of clubs to develop students' skills and interests"
+    },
+    "achievements": {
+      "meta": { "title": "Achievements - Al-Orman Secondary School for Boys", "description": "Our students' outstanding achievements at local and international levels." },
+      "title": "Achievements",
+      "subtitle": "Our students' outstanding achievements at local and international levels",
+      "yearLabel": "Year",
+      "notDefined": "N/A",
+      "noImage": "No Image",
+      "clickToEnlarge": "Click to enlarge",
+      "topStudents": "🏆 Top Students",
+      "topStudentsPlaceholder": "Top Students Table Image",
+      "closeLabel": "Close"
+    },
+    "competitions": {
+      "meta": { "title": "Competitions - Al-Orman Secondary School for Boys", "description": "Local and international competitions showcasing our students' talents." },
+      "title": "Competitions",
+      "subtitle": "Local and international competitions to showcase our students' talents",
+      "moreDetails": "For more details, please visit the library or the talented students room"
+    },
+    "library": {
+      "meta": { "title": "Al-Orman School Library", "description": "A modern library offering educational resources and a wide range of books." },
+      "title": "Al-Orman School Library",
+      "subtitle": "A modern library offering educational resources and a wide range of books for students"
+    },
+    "studentUnion": {
+      "meta": { "title": "Student Union - Al-Orman Secondary School for Boys", "description": "Learn about the Student Union's role in representing students." },
+      "title": "Student Union",
+      "subtitle": "A student organization representing the student voice and organizing events and activities",
+      "responsibilities": {
+        "title": "Responsibilities",
+        "items": [
+          "Representing students in administrative meetings",
+          "Organizing school events and activities",
+          "Resolving student issues"
+        ]
+      },
+      "followUs": "Follow the Student Union page on",
+      "facebook": "Facebook"
+    }
+  }
+}
+

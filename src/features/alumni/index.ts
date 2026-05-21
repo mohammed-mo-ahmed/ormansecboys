@@ -1,0 +1,1 @@
+export { AlumniPage } from './components/AlumniPage';
