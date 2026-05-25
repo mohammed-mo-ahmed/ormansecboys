@@ -1,13 +1,16 @@
-// ✅ Server Component — data fetch + header
-import { getTranslations, getLocale } from 'next-intl/server';
+// src/features/activities/components/AchievementsPage.tsx
+import { getTranslations } from 'next-intl/server';
 import { getAchievements, getTopStudentGrades } from '../services/achievements.service';
 import { AchievementsClient } from './AchievementsClient';
 
-export const AchievementsPage = async () => {
-  const [achievements, topStudents, locale, t] = await Promise.all([
+interface AchievementsPageProps {
+  locale: string;
+}
+
+export const AchievementsPage = async ({ locale }: AchievementsPageProps) => {
+  const [achievements, topStudents, t] = await Promise.all([
     getAchievements(),
     getTopStudentGrades(),
-    getLocale(),
     getTranslations('activities.achievements'),
   ]);
 
@@ -18,19 +21,18 @@ export const AchievementsPage = async () => {
           <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">{t('title')}</h1>
           <p className="text-xl text-gray-600">{t('subtitle')}</p>
         </div>
-
         <AchievementsClient
           achievements={achievements}
           topStudents={topStudents}
           locale={locale}
           labels={{
-            yearLabel:             t('yearLabel'),
-            notDefined:            t('notDefined'),
-            noImage:               t('noImage'),
-            clickToEnlarge:        t('clickToEnlarge'),
-            topStudents:           t('topStudents'),
+            yearLabel:              t('yearLabel'),
+            notDefined:             t('notDefined'),
+            noImage:                t('noImage'),
+            clickToEnlarge:         t('clickToEnlarge'),
+            topStudents:            t('topStudents'),
             topStudentsPlaceholder: t('topStudentsPlaceholder'),
-            closeLabel:            t('closeLabel'),
+            closeLabel:             t('closeLabel'),
           }}
         />
       </div>

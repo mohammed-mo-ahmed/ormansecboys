@@ -1,16 +1,16 @@
-// ✅ Server Component كامل — مفيش أي interactivity (الـ form commented out في الأصل)
-import { getTranslations, getLocale } from 'next-intl/server';
+// ✅ Server Component كامل — يستقبل locale كـ prop بدل getLocale()
+import { getTranslations } from 'next-intl/server';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 import { JsonLd } from '@/shared/components/seo/JsonLd';
 import { siteConfig } from '@/config/site';
 
-export const ContactPage = async () => {
-  const [locale, t] = await Promise.all([
-    getLocale(),
-    getTranslations('contact'),
-  ]);
+interface ContactPageProps {
+  locale: string;
+}
 
-  // ✅ EducationalOrganization JSON-LD — بيساعد Google يفهم المدرسة
+export const ContactPage = async ({ locale }: ContactPageProps) => {
+  const t = await getTranslations('contact');
+
   const schoolSchema = {
     '@context': 'https://schema.org',
     '@type': 'EducationalOrganization',
@@ -53,7 +53,7 @@ export const ContactPage = async () => {
     {
       key: 'hours',
       Icon: Clock,
-      value: null, // بيتعامل معاه بشكل خاص
+      value: null,
       dir: undefined,
     },
   ] as const;
@@ -65,7 +65,6 @@ export const ContactPage = async () => {
       <div className="min-h-screen bg-gray-50 py-16">
         <div className="max-w-7xl mx-auto px-4">
 
-          {/* Header */}
           <div className="text-center max-w-3xl mx-auto mb-12">
             <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
               {t('title')}
@@ -73,7 +72,6 @@ export const ContactPage = async () => {
             <p className="text-xl text-gray-600">{t('subtitle')}</p>
           </div>
 
-          {/* Contact Info */}
           <div className="mb-12">
             <h2 className="text-2xl font-bold mb-6 text-gray-900">
               {t('info.sectionTitle')}
@@ -103,7 +101,6 @@ export const ContactPage = async () => {
             </div>
           </div>
 
-          {/* Google Maps */}
           <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
             <div className="aspect-video w-full">
               <iframe

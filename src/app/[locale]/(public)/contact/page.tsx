@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { ContactPage } from '@/features/contact';
 import { siteConfig } from '@/config/site';
 
@@ -28,6 +28,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function Page() {
-  return <ContactPage />;
+export default async function Page({ params }: Props) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  // ✅ نمرر locale كـ prop بدل ما ContactPage تستخدم getLocale()
+  return <ContactPage locale={locale} />;
 }

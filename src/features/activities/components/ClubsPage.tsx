@@ -1,12 +1,16 @@
-// ✅ Server Component كامل
-import { getTranslations, getLocale } from 'next-intl/server';
+// src/features/activities/components/ClubsPage.tsx
+// ✅ يستقبل locale كـ prop
+import { getTranslations } from 'next-intl/server';
 import { getClubs } from '../services/clubs.service';
 import type { Locale } from '@/lib/i18n/config';
 
-export const ClubsPage = async () => {
-  const [clubs, locale, t] = await Promise.all([
+interface ClubsPageProps {
+  locale: string;
+}
+
+export const ClubsPage = async ({ locale }: ClubsPageProps) => {
+  const [clubs, t] = await Promise.all([
     getClubs(),
-    getLocale(),
     getTranslations('activities.clubs'),
   ]);
   const isAr = (locale as Locale) === 'ar';
@@ -18,14 +22,9 @@ export const ClubsPage = async () => {
           <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">{t('title')}</h1>
           <p className="text-xl text-gray-600">{t('subtitle')}</p>
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {clubs.map(club => (
-            <div
-              key={club.id}
-              className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all 
-              transform hover:-translate-y-2 border border-gray-100"
-            >
+            <div key={club.id} className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-2 border border-gray-100">
               <div className="text-6xl mb-4" aria-hidden="true">{club.icon}</div>
               <h3 className="text-xl font-bold mb-3 text-gray-900">
                 {club.name[isAr ? 'ar' : 'en']}

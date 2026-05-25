@@ -1,8 +1,12 @@
-// ✅ Server Component كامل
+// ✅ Server Component — يستقبل locale كـ prop بدل getLocale()
 import { getTranslations } from 'next-intl/server';
 import { Target, Users } from 'lucide-react';
 
-export const OverviewPage = async () => {
+interface OverviewPageProps {
+  locale: string;
+}
+
+export const OverviewPage = async ({ locale }: OverviewPageProps) => {
   const t = await getTranslations('about.overview');
 
   const VALUES_KEYS = ['excellence', 'discipline', 'leadership'] as const;

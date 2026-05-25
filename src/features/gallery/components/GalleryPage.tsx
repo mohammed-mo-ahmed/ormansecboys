@@ -1,13 +1,17 @@
-// ✅ Server Component — data fetching + static header
-import { getTranslations, getLocale } from 'next-intl/server';
+// src/features/gallery/components/GalleryPage.tsx
+// ✅ Server Component — يستقبل locale كـ prop بدل getLocale()
+import { getTranslations } from 'next-intl/server';
 import { getGalleryPhotos, getGalleryVideos } from '../services/gallery.service';
 import { GalleryClient } from './GalleryClient';
 
-export const GalleryPage = async () => {
-  const [photos, videos, locale, t] = await Promise.all([
+interface GalleryPageProps {
+  locale: string;
+}
+
+export const GalleryPage = async ({ locale }: GalleryPageProps) => {
+  const [photos, videos, t] = await Promise.all([
     getGalleryPhotos(),
     getGalleryVideos(),
-    getLocale(),
     getTranslations('gallery'),
   ]);
 
@@ -21,7 +25,6 @@ export const GalleryPage = async () => {
           <p className="text-xl text-gray-600">{t('subtitle')}</p>
         </div>
 
-        {/* ✅ كل الـ interactivity في Client Component واحد */}
         <GalleryClient
           photos={photos}
           videos={videos}

@@ -1,5 +1,5 @@
-// ✅ Server Component كامل — مفيش أي useState
-import { getTranslations, getLocale } from 'next-intl/server';
+// ✅ Server Component — يستقبل locale كـ prop بدل getLocale()
+import { getTranslations } from 'next-intl/server';
 import { GraduationCap } from 'lucide-react';
 import { getAlumniStories } from '../services/alumni.service';
 import { AlumniCard } from './AlumniCard';
@@ -7,14 +7,16 @@ import { JsonLd } from '@/shared/components/seo/JsonLd';
 import { siteConfig } from '@/config/site';
 import type { Locale } from '@/lib/i18n/config';
 
-export const AlumniPage = async () => {
-  const [stories, locale, t] = await Promise.all([
+interface AlumniPageProps {
+  locale: string;
+}
+
+export const AlumniPage = async ({ locale }: AlumniPageProps) => {
+  const [stories, t] = await Promise.all([
     getAlumniStories(),
-    getLocale(),
     getTranslations('alumni'),
   ]);
 
-  // ✅ Person schema لكل خريج بارز — SEO ممتاز
   const alumniSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -44,7 +46,6 @@ export const AlumniPage = async () => {
       <div className="min-h-screen bg-gray-50 py-16">
         <div className="max-w-7xl mx-auto px-4">
 
-          {/* Header */}
           <div className="text-center max-w-3xl mx-auto mb-12">
             <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
               {t('title')}
@@ -52,7 +53,6 @@ export const AlumniPage = async () => {
             <p className="text-xl text-gray-600">{t('subtitle')}</p>
           </div>
 
-          {/* Stat */}
           <div className="flex justify-center mb-16">
             <div className="bg-white p-8 rounded-xl shadow-lg text-center border border-gray-100 w-[400px] md:w-[500px]">
               <div className="w-16 h-16 bg-[#0652ba] rounded-full flex items-center justify-center mx-auto mb-4">
@@ -63,7 +63,6 @@ export const AlumniPage = async () => {
             </div>
           </div>
 
-          {/* Stories */}
           <section>
             <h2 className="text-3xl font-bold mb-8 text-gray-900 text-center">
               {t('successStories')}
