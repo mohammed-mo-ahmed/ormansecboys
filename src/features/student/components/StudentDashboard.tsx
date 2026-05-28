@@ -67,6 +67,7 @@ export const StudentDashboard = ({ locale }: StudentDashboardProps) => {
           .print-only { display: block !important; }
           .shadow-sm, .shadow-lg { box-shadow: none !important; border: 1px solid #eee !important; }
           .bg-gray-50 { background: white !important; }
+          .page-break { page-break-before: always; }
           .bg-[#0652ba] { color: #0652ba !important; background: transparent !important; padding: 0 !important; border-bottom: 2px solid #0652ba !important; }
           header { box-shadow: none !important; }
           header h1 { color: #0652ba !important; font-size: 24px !important; }
@@ -170,7 +171,7 @@ export const StudentDashboard = ({ locale }: StudentDashboardProps) => {
             </div>
 
             {/* Non-Total Subjects */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden print:border-gray-200">
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden print:border-gray-200 print:page-break">
               <div className="px-6 py-4 border-b border-gray-50 flex items-center gap-2 print:bg-gray-50">
                 <Award className="w-5 h-5 text-green-600" />
                 <h3 className="font-bold text-gray-900">{t('nonTotalResults')}</h3>
