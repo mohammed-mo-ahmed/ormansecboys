@@ -212,6 +212,8 @@
     "grade": "Grade",
     "class": "Class",
     "seatNo": "Seat No.",
+    "grade1": "First Secondary Grade",
+    "grade2": "Second Secondary Grade",
     "branch": "Branch",
     "scientific": "Scientific",
     "literary": "Literary",

@@ -77,7 +77,7 @@ export const StudentDashboard = ({ locale }: StudentDashboardProps) => {
             <div>
               <h2 className="text-2xl font-bold text-gray-900 mb-1">{student.name}</h2>
               <div className="flex flex-wrap gap-2 text-[#0652ba] font-medium">
-                <span>{student.grade}</span>
+                <span>{t(student.grade)}</span>
                 {student.branch && (
                   <>
                     <span>—</span>
@@ -176,8 +176,35 @@ export const StudentDashboard = ({ locale }: StudentDashboardProps) => {
           <div className="space-y-6">
             {/* Percentage Card */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 text-center">
-              <div className={`inline-flex items-center justify-center w-24 h-24 rounded-full border-8 ${student.percentage >= 50 ? 'border-green-50 border-t-green-500' : 'border-red-50 border-t-red-500'} mb-4`}>
-                <span className="text-2xl font-black text-gray-900">{student.percentage.toFixed(1)}%</span>
+              <div className="relative inline-flex items-center justify-center w-32 h-32 mb-4">
+                {/* Background Circle */}
+                <svg className="w-full h-full transform -rotate-90">
+                  <circle
+                    cx="64"
+                    cy="64"
+                    r="58"
+                    stroke="currentColor"
+                    strokeWidth="8"
+                    fill="transparent"
+                    className="text-gray-100"
+                  />
+                  {/* Progress Circle */}
+                  <circle
+                    cx="64"
+                    cy="64"
+                    r="58"
+                    stroke="currentColor"
+                    strokeWidth="8"
+                    fill="transparent"
+                    strokeDasharray={364.4}
+                    strokeDashoffset={364.4 - (364.4 * student.percentage) / 100}
+                    strokeLinecap="round"
+                    className={`${student.percentage >= 50 ? 'text-green-500' : 'text-red-500'} transition-all duration-1000 ease-out`}
+                  />
+                </svg>
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                  <span className="text-2xl font-black text-gray-900">{student.percentage.toFixed(1)}%</span>
+                </div>
               </div>
               <h4 className="font-bold text-gray-900 mb-1">{t('percentage')}</h4>
               <p className={`text-sm font-bold ${student.percentage >= 50 ? 'text-green-600' : 'text-red-600'}`}>

@@ -52,7 +52,7 @@ export const fetchAllStudents = async (): Promise<StudentData[]> => {
 
     const nationalId = cols[0] ?? '';
     const name = cols[1] ?? '';
-    const grade = cols[2] ?? '';
+    const gradeCode = cols[2] ?? '';
     const classroom = cols[3] ?? '';
     const seatNumber = cols[4] ?? '';
     const branchCode = cols[5] ?? '';
@@ -61,6 +61,9 @@ export const fetchAllStudents = async (): Promise<StudentData[]> => {
 
     let subjects: SubjectGrade[] = [];
     let nonTotalSubjects: SubjectGrade[] = [];
+
+    // تحويل رمز الصف
+    const grade = gradeCode === '1' ? 'grade1' : gradeCode === '2' ? 'grade2' : '';
 
     // تحويل رمز الشعبة
     const branch = branchCode === '1' ? 'علمي' : branchCode === '2' ? 'أدبي' : '';
@@ -72,8 +75,10 @@ export const fetchAllStudents = async (): Promise<StudentData[]> => {
       secondLangCode === '3' ? 'italian' : 
       secondLangCode === '4' ? 'spanish' : 'english2';
 
+    // 🛠️ لتعديل الدرجات النهائية (النهائية العظمى)، قم بتغيير قيمة max في الأسفل لكل مادة
+    
     // تحديد المواد بناءً على الصف والشعبة
-    if (grade.includes('أول') || grade.includes('1')) {
+    if (gradeCode === '1') { // الصف الأول الثانوي
       subjects = [
         { id: 'arabic', subject: 'اللغة العربية', grade: Number(cols[7]) || 0, max: 80 },
         { id: 'english1', subject: 'اللغة الأجنبية الأولى', grade: Number(cols[8]) || 0, max: 60 },
@@ -82,7 +87,7 @@ export const fetchAllStudents = async (): Promise<StudentData[]> => {
         { id: 'philosophy', subject: 'الفلسفة والمنطق', grade: Number(cols[11]) || 0, max: 40 },
         { id: 'math', subject: 'الرياضيات', grade: Number(cols[12]) || 0, max: 80 },
       ];
-    } else if (grade.includes('ثاني') || grade.includes('2')) {
+    } else if (gradeCode === '2') { // الصف الثاني الثانوي
       if (branchCode === '1') { // علمي
         subjects = [
           { id: 'arabic', subject: 'اللغة العربية', grade: Number(cols[7]) || 0, max: 80 },
@@ -105,6 +110,7 @@ export const fetchAllStudents = async (): Promise<StudentData[]> => {
     }
 
     // مواد غير مضافة للمجموع (مشتركة)
+    // 🛠️ لتعديل الدرجات النهائية لهذه المواد، غير قيمة max هنا
     nonTotalSubjects = [
       { id: 'religion', subject: 'تربية دينية', grade: Number(cols[13]) || 0, max: 40 },
       { id: secondLangId, subject: 'لغة أجنبية ثانية', grade: Number(cols[14]) || 0, max: 40 },
