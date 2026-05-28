@@ -178,37 +178,27 @@ export const StudentDashboard = ({ locale }: StudentDashboardProps) => {
   const [student,     setStudent]     = useState<StudentData | null>(null);
   const [activeTab,   setActiveTab]   = useState<Tab>('overview');
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [checked,     setChecked]     = useState(false); // ✅ منع redirect مبكر
 
   useEffect(() => {
     // ✅ قرا من sessionStorage مرة واحدة بس
+    // StudentAuthGuard بالفعل بيتحقق من وجودها قبل ما يوصل هنا
     const raw = sessionStorage.getItem('student_data');
     if (raw) {
       try {
         setStudent(JSON.parse(raw));
       } catch {
         sessionStorage.removeItem('student_data');
-        window.location.href = `/${locale}/login`;
       }
     }
-    // ✅ سجل إن الفحص خلص — بعد كده بس نقرر
-    setChecked(true);
-  }, []); // ✅ dependency array فاضي — يشتغل مرة واحدة بس
-
-  // ✅ لو الفحص خلص ومفيش student → redirect
-  useEffect(() => {
-    if (checked && !student) {
-      window.location.href = `/${locale}/login`;
-    }
-  }, [checked, student, locale]);
+  }, []);
 
   const handleLogout = () => {
     sessionStorage.removeItem('student_data');
     window.location.href = `/${locale}`;
   };
 
-  // Loading spinner لحد ما الفحص يخلص
-  if (!checked || !student) {
+  // Loading spinner لحد ما البيانات تتحمل
+  if (!student) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white">
         <div className="w-8 h-8 border-4 border-[#0652ba] border-t-transparent rounded-full animate-spin" />

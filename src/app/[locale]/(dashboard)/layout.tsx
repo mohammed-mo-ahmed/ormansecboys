@@ -1,7 +1,7 @@
-// ✅ Dashboard layout — Auth protection بـ Firebase client-side
-// مع output: 'export' مفيش server-side auth، بنستخدم Firebase Auth على الـ client
+// ✅ Dashboard layout — Auth protection بـ sessionStorage للطلاب
+// بيتحقق من student_data في sessionStorage بدل Firebase Auth
 import { setRequestLocale } from 'next-intl/server';
-import { AuthGuard } from '@/features/auth/guards/AuthGuard';
+import { StudentAuthGuard } from '@/features/auth/guards/StudentAuthGuard';
 
 type Props = {
   children: React.ReactNode;
@@ -13,14 +13,14 @@ export default async function DashboardLayout({ children, params }: Props) {
   setRequestLocale(locale);
 
   return (
-    // ✅ AuthGuard هو Client Component بيتحقق من Firebase Auth
-    <AuthGuard>
+    // ✅ StudentAuthGuard هو Client Component بيتحقق من sessionStorage
+    <StudentAuthGuard>
       <div className="min-h-screen bg-gray-100 flex">
         {/* Sidebar — هيتبني لاحقاً */}
         <main className="flex-1 overflow-auto">
           {children}
         </main>
       </div>
-    </AuthGuard>
+    </StudentAuthGuard>
   );
 }
