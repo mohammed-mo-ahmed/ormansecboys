@@ -12,9 +12,63 @@ export function generateStaticParams() {
   return routing.locales.map(locale => ({ locale }));
 }
 
-export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.url),
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const isAr = locale === 'ar';
+
+  return {
+    metadataBase: new URL(siteConfig.url),
+    title: {
+      default: siteConfig.name[isAr ? 'ar' : 'en'],
+      template: `%s | ${siteConfig.name[isAr ? 'ar' : 'en']}`,
+    },
+    description: siteConfig.description[isAr ? 'ar' : 'en'],
+    keywords: siteConfig.keywords,
+    authors: [{ name: 'Al-Orman School' }],
+    creator: 'Al-Orman School',
+    icons: {
+      icon: '/favicon.ico',
+      shortcut: '/favicon.ico',
+      apple: '/apple-touch-icon.png',
+    },
+    openGraph: {
+      type: 'website',
+      locale: isAr ? 'ar_EG' : 'en_US',
+      url: siteConfig.url,
+      title: siteConfig.name[isAr ? 'ar' : 'en'],
+      description: siteConfig.description[isAr ? 'ar' : 'en'],
+      siteName: siteConfig.name[isAr ? 'ar' : 'en'],
+      images: [
+        {
+          url: siteConfig.ogImage,
+          width: 1200,
+          height: 630,
+          alt: siteConfig.name[isAr ? 'ar' : 'en'],
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: siteConfig.name[isAr ? 'ar' : 'en'],
+      description: siteConfig.description[isAr ? 'ar' : 'en'],
+      images: [siteConfig.ogImage],
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
+    verification: {
+      google: 'your-google-verification-code', // User can update this later
+    },
+  };
+}
 
 type Props = {
   children: React.ReactNode;
