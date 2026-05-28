@@ -1,187 +1,22 @@
 'use client';
-// src/features/student/components/StudentDashboard.tsx
 import { useState, useEffect } from 'react';
 import {
-  BookOpen, Calendar, ClipboardList,
-  MessageSquare, BarChart2, Bell,
-  LogOut, Menu, X, GraduationCap,
+  LogOut, GraduationCap,
   Hash, Users, CreditCard,
+  MessageSquare, ClipboardList,
+  BarChart2, BookOpen
 } from 'lucide-react';
 import type { StudentData } from '../services/sheets.service';
 
-type Tab = 'overview' | 'grades' | 'schedule' | 'assignments' | 'messages';
-
-interface NavItem {
-  id:      Tab;
-  labelAr: string;
-  labelEn: string;
-  icon:    React.ElementType;
-}
-
-const NAV_ITEMS: NavItem[] = [
-  { id: 'overview',    labelAr: 'الرئيسية',  labelEn: 'Overview',    icon: BarChart2     },
-  { id: 'grades',      labelAr: 'الدرجات',   labelEn: 'Grades',      icon: BookOpen      },
-  { id: 'schedule',    labelAr: 'الجدول',    labelEn: 'Schedule',    icon: Calendar      },
-  { id: 'assignments', labelAr: 'الواجبات',  labelEn: 'Assignments', icon: ClipboardList },
-  { id: 'messages',    labelAr: 'الرسائل',   labelEn: 'Messages',    icon: MessageSquare },
-];
-
-const MOCK_SCHEDULE = [
-  { day: 'الأحد',    dayEn: 'Sunday',    periods: ['رياضيات', 'فيزياء', 'عربي', 'إنجليزي'] },
-  { day: 'الاثنين',  dayEn: 'Monday',    periods: ['كيمياء', 'تاريخ', 'رياضيات', 'ألماني']  },
-  { day: 'الثلاثاء', dayEn: 'Tuesday',   periods: ['إنجليزي', 'أحياء', 'فلسفة', 'رياضيات'] },
-  { day: 'الأربعاء', dayEn: 'Wednesday', periods: ['عربي', 'فيزياء', 'كيمياء', 'تاريخ']    },
-  { day: 'الخميس',   dayEn: 'Thursday',  periods: ['رياضيات', 'إنجليزي', 'ألماني', 'أحياء'] },
-];
-
-// ── Tabs ────────────────────────────────────────────────
-const OverviewTab = ({ student, isAr }: { student: StudentData; isAr: boolean }) => {
-  const total    = student.subjects.reduce((s, g) => s + g.grade, 0);
-  const maxTotal = student.subjects.reduce((s, g) => s + g.max,   0);
-  const avg      = maxTotal > 0 ? ((total / maxTotal) * 100).toFixed(1) : '—';
-
-  return (
-    <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-gray-900">
-        {isAr ? `مرحباً، ${student.name} 👋` : `Welcome, ${student.name} 👋`}
-      </h2>
-
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        {[
-          { label: isAr ? 'الصف'        : 'Grade',    value: student.grade,      Icon: Users,      bg: 'bg-[#0652ba]' },
-          { label: isAr ? 'الفصل'       : 'Class',    value: student.classroom,  Icon: Hash,       bg: 'bg-purple-600' },
-          { label: isAr ? 'رقم الجلوس'  : 'Seat No.', value: student.seatNumber, Icon: CreditCard, bg: 'bg-green-600'  },
-        ].map(({ label, value, Icon, bg }) => (
-          <div key={label} className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 flex items-center gap-3">
-            <div className={`w-10 h-10 ${bg} rounded-lg flex items-center justify-center flex-shrink-0`}>
-              <Icon className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <p className="text-xs text-gray-500">{label}</p>
-              <p className="font-bold text-gray-900">{value}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-        <div className="flex items-center justify-between mb-3">
-          <h3 className="font-bold text-gray-900">{isAr ? 'المتوسط العام' : 'Overall Average'}</h3>
-          <span className="text-2xl font-bold text-[#0652ba]">{avg}%</span>
-        </div>
-        <div className="w-full bg-gray-100 rounded-full h-3">
-          <div className="bg-[#0652ba] h-3 rounded-full transition-all duration-700" style={{ width: `${avg}%` }} />
-        </div>
-      </div>
-
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-        <h3 className="font-bold text-gray-900 mb-4">{isAr ? 'آخر الدرجات' : 'Recent Grades'}</h3>
-        <div className="space-y-3">
-          {student.subjects.slice(0, 5).map(g => (
-            <div key={g.subject} className="flex items-center gap-3">
-              <span className="flex-1 text-gray-700 text-sm">{g.subject}</span>
-              <div className="w-28 bg-gray-100 rounded-full h-2">
-                <div
-                  className={`h-2 rounded-full ${g.grade / g.max >= 0.9 ? 'bg-green-500' : g.grade / g.max >= 0.75 ? 'bg-[#0652ba]' : 'bg-orange-400'}`}
-                  style={{ width: `${(g.grade / g.max) * 100}%` }}
-                />
-              </div>
-              <span className="text-sm font-bold text-gray-900 w-14 text-end">{g.grade}/{g.max}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const GradesTab = ({ student, isAr }: { student: StudentData; isAr: boolean }) => (
-  <div>
-    <h2 className="text-2xl font-bold text-gray-900 mb-6">{isAr ? 'الدرجات' : 'Grades'}</h2>
-    <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-      <table className="w-full">
-        <thead className="bg-gray-50">
-          <tr>
-            <th className="px-6 py-3 text-start text-sm font-semibold text-gray-600">{isAr ? 'المادة' : 'Subject'}</th>
-            <th className="px-6 py-3 text-start text-sm font-semibold text-gray-600">{isAr ? 'الدرجة' : 'Grade'}</th>
-            <th className="px-6 py-3 text-start text-sm font-semibold text-gray-600">{isAr ? 'التقدير' : 'Rating'}</th>
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-gray-50">
-          {student.subjects.map(g => (
-            <tr key={g.subject} className="hover:bg-gray-50 transition-colors">
-              <td className="px-6 py-4 font-medium text-gray-900">{g.subject}</td>
-              <td className="px-6 py-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-24 bg-gray-100 rounded-full h-2">
-                    <div className="bg-[#0652ba] h-2 rounded-full" style={{ width: `${(g.grade / g.max) * 100}%` }} />
-                  </div>
-                  <span className="font-bold text-gray-900">{g.grade}/{g.max}</span>
-                </div>
-              </td>
-              <td className="px-6 py-4">
-                <span className={`px-3 py-1 rounded-full text-xs font-bold ${
-                  g.grade / g.max >= 0.9  ? 'bg-green-100 text-green-700'   :
-                  g.grade / g.max >= 0.75 ? 'bg-blue-100 text-blue-700'     :
-                                            'bg-orange-100 text-orange-700'
-                }`}>
-                  {g.grade / g.max >= 0.9
-                    ? (isAr ? 'ممتاز'    : 'Excellent')
-                    : g.grade / g.max >= 0.75
-                    ? (isAr ? 'جيد جداً' : 'Very Good')
-                    : (isAr ? 'جيد'      : 'Good')}
-                </span>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  </div>
-);
-
-const ScheduleTab = ({ isAr }: { isAr: boolean }) => (
-  <div>
-    <h2 className="text-2xl font-bold text-gray-900 mb-6">{isAr ? 'الجدول الدراسي' : 'Schedule'}</h2>
-    <div className="space-y-4">
-      {MOCK_SCHEDULE.map(day => (
-        <div key={day.day} className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
-          <h3 className="font-bold text-[#0652ba] mb-3">{isAr ? day.day : day.dayEn}</h3>
-          <div className="flex flex-wrap gap-2">
-            {day.periods.map((p, i) => (
-              <span key={i} className="px-3 py-1 bg-blue-50 text-blue-700 rounded-lg text-sm font-medium">
-                {i + 1}. {p}
-              </span>
-            ))}
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
-);
-
-const EmptyTab = ({ label }: { label: string }) => (
-  <div className="flex flex-col items-center justify-center py-20 text-gray-400">
-    <MessageSquare className="w-16 h-16 mb-4 opacity-30" />
-    <p className="text-lg">{label}</p>
-  </div>
-);
-
-// ── Main ────────────────────────────────────────────────
 interface StudentDashboardProps {
   locale: string;
 }
 
 export const StudentDashboard = ({ locale }: StudentDashboardProps) => {
   const isAr = locale === 'ar';
-
-  const [student,     setStudent]     = useState<StudentData | null>(null);
-  const [activeTab,   setActiveTab]   = useState<Tab>('overview');
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [student, setStudent] = useState<StudentData | null>(null);
 
   useEffect(() => {
-    // ✅ قرا من sessionStorage مرة واحدة بس
-    // StudentAuthGuard بالفعل بيتحقق من وجودها قبل ما يوصل هنا
     const raw = sessionStorage.getItem('student_data');
     if (raw) {
       try {
@@ -197,7 +32,6 @@ export const StudentDashboard = ({ locale }: StudentDashboardProps) => {
     window.location.href = `/${locale}`;
   };
 
-  // Loading spinner لحد ما البيانات تتحمل
   if (!student) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white">
@@ -206,98 +40,118 @@ export const StudentDashboard = ({ locale }: StudentDashboardProps) => {
     );
   }
 
-  const renderTab = () => {
-    switch (activeTab) {
-      case 'overview':    return <OverviewTab  student={student} isAr={isAr} />;
-      case 'grades':      return <GradesTab    student={student} isAr={isAr} />;
-      case 'schedule':    return <ScheduleTab  isAr={isAr} />;
-      case 'assignments': return <EmptyTab label={isAr ? 'لا توجد واجبات حالياً' : 'No assignments yet'} />;
-      case 'messages':    return <EmptyTab label={isAr ? 'لا توجد رسائل حالياً'  : 'No messages yet'}    />;
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-gray-50 flex" dir={isAr ? 'rtl' : 'ltr'}>
+    <div className="min-h-screen bg-gray-50 flex flex-col" dir={isAr ? 'rtl' : 'ltr'}>
+      {/* Header */}
+      <header className="bg-[#0652ba] text-white px-6 py-4 flex items-center justify-between shadow-lg">
+        <div className="flex items-center gap-3">
+          <GraduationCap className="w-8 h-8" />
+          <h1 className="text-xl font-bold">{isAr ? 'بوابة الطالب' : 'Student Portal'}</h1>
+        </div>
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-all text-sm font-semibold"
+        >
+          <LogOut className="w-4 h-4" />
+          {isAr ? 'خروج' : 'Logout'}
+        </button>
+      </header>
 
-      {sidebarOpen && (
-        <div className="fixed inset-0 bg-black/40 z-20 lg:hidden" onClick={() => setSidebarOpen(false)} />
-      )}
-
-      {/* Sidebar */}
-      <aside className={`
-        fixed top-0 bottom-0 z-30 w-64 bg-[#0652ba] text-white flex flex-col
-        transition-transform duration-300
-        ${isAr ? 'right-0' : 'left-0'}
-        ${sidebarOpen ? 'translate-x-0' : (isAr ? 'translate-x-full' : '-translate-x-full')}
-        lg:translate-x-0 lg:static lg:z-auto
-      `}>
-        <div className="p-6 border-b border-white/20">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
-              <GraduationCap className="w-6 h-6" />
+      <main className="flex-1 p-4 md:p-8 max-w-5xl mx-auto w-full space-y-6">
+        {/* Student Info Card */}
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-1">{student.name}</h2>
+              <p className="text-[#0652ba] font-medium">
+                {student.grade} {student.branch ? `— ${student.branch}` : ''}
+              </p>
             </div>
-            <div className="min-w-0">
-              <p className="font-bold text-sm truncate">{student.name}</p>
-              <p className="text-xs text-white/60">{student.grade} — {student.classroom}</p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 flex-shrink-0">
+              <div className="flex items-center gap-3 bg-gray-50 px-4 py-3 rounded-xl">
+                <Users className="w-5 h-5 text-gray-400" />
+                <div>
+                  <p className="text-[10px] text-gray-500 uppercase">{isAr ? 'الفصل' : 'Class'}</p>
+                  <p className="font-bold text-gray-900">{student.classroom}</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 bg-gray-50 px-4 py-3 rounded-xl">
+                <CreditCard className="w-5 h-5 text-gray-400" />
+                <div>
+                  <p className="text-[10px] text-gray-500 uppercase">{isAr ? 'رقم الجلوس' : 'Seat No.'}</p>
+                  <p className="font-bold text-gray-900">{student.seatNumber}</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
-          {NAV_ITEMS.map(({ id, labelAr, labelEn, icon: Icon }) => (
-            <button
-              key={id}
-              onClick={() => { setActiveTab(id); setSidebarOpen(false); }}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold
-                transition-all ${activeTab === id
-                  ? 'bg-white text-[#0652ba] shadow'
-                  : 'text-white/80 hover:bg-white/10'
-                }`}
-            >
-              <Icon className="w-5 h-5 flex-shrink-0" />
-              {isAr ? labelAr : labelEn}
-            </button>
-          ))}
-        </nav>
-
-        <div className="p-4 border-t border-white/20">
-          <button
-            onClick={handleLogout}
-            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold
-              text-white/80 hover:bg-white/10 transition-all"
-          >
-            <LogOut className="w-5 h-5 flex-shrink-0" />
-            {isAr ? 'الخروج' : 'Sign Out'}
-          </button>
-        </div>
-      </aside>
-
-      {/* Main */}
-      <div className="flex-1 flex flex-col min-w-0">
-        <header className="bg-white border-b border-gray-100 px-4 py-3 flex items-center justify-between sticky top-0 z-10 shadow-sm">
-          <button
-            onClick={() => setSidebarOpen(s => !s)}
-            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
-          >
-            {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
-          <div className="lg:hidden font-bold text-[#0652ba] text-sm">
-            {isAr ? 'بوابة الطالب' : 'Student Portal'}
-          </div>
-          <div className="flex items-center gap-3 ms-auto">
-            <button className="relative p-2 rounded-lg hover:bg-gray-100 transition-colors">
-              <Bell className="w-5 h-5 text-gray-500" />
-            </button>
-            <div className="w-8 h-8 bg-[#0652ba] rounded-full flex items-center justify-center text-white text-sm font-bold">
-              {student.name[0]}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Grades Table */}
+          <div className="lg:col-span-2 space-y-6">
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+              <div className="px-6 py-4 border-b border-gray-50 flex items-center gap-2">
+                <BookOpen className="w-5 h-5 text-[#0652ba]" />
+                <h3 className="font-bold text-gray-900">{isAr ? 'نتائج المواد' : 'Subject Results'}</h3>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-start">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-6 py-3 text-sm font-semibold text-gray-600">{isAr ? 'المادة' : 'Subject'}</th>
+                      <th className="px-6 py-3 text-center text-sm font-semibold text-gray-600">{isAr ? 'الدرجة' : 'Grade'}</th>
+                      <th className="px-6 py-3 text-center text-sm font-semibold text-gray-600">{isAr ? 'الدرجة النهائية' : 'Max'}</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-50">
+                    {student.subjects.map((s, i) => (
+                      <tr key={i} className="hover:bg-gray-50 transition-colors">
+                        <td className="px-6 py-4 font-medium text-gray-900">{s.subject}</td>
+                        <td className="px-6 py-4 text-center font-bold text-[#0652ba]">{s.grade}</td>
+                        <td className="px-6 py-4 text-center text-gray-500">{s.max}</td>
+                      </tr>
+                    ))}
+                    <tr className="bg-blue-50/50">
+                      <td className="px-6 py-4 font-bold text-gray-900">{isAr ? 'المجموع الكلي' : 'Total'}</td>
+                      <td className="px-6 py-4 text-center font-black text-[#0652ba] text-lg">{student.totalGrade}</td>
+                      <td className="px-6 py-4 text-center font-bold text-gray-700">{student.maxTotal}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
-        </header>
 
-        <main className="flex-1 p-4 md:p-6 overflow-auto">
-          {renderTab()}
-        </main>
-      </div>
+          {/* Sidebar Stats & Message */}
+          <div className="space-y-6">
+            {/* Percentage Card */}
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 text-center">
+              <div className="inline-flex items-center justify-center w-24 h-24 rounded-full border-8 border-blue-50 border-t-[#0652ba] mb-4">
+                <span className="text-2xl font-black text-gray-900">{student.percentage.toFixed(1)}%</span>
+              </div>
+              <h4 className="font-bold text-gray-900 mb-1">{isAr ? 'النسبة المئوية' : 'Percentage'}</h4>
+              <p className="text-sm text-gray-500">
+                {student.percentage >= 50 ? (isAr ? 'ناجح' : 'Passed') : (isAr ? 'راسب' : 'Failed')}
+              </p>
+            </div>
+
+            {/* Message Card */}
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+              <div className="flex items-center gap-2 mb-4 text-[#0652ba]">
+                <MessageSquare className="w-5 h-5" />
+                <h4 className="font-bold text-gray-900">{isAr ? 'رسالة الإدارة' : 'Admin Message'}</h4>
+              </div>
+              <div className="bg-blue-50 rounded-xl p-4 text-sm text-blue-900 leading-relaxed italic">
+                {student.message || (isAr ? 'لا توجد رسائل حالياً' : 'No messages at the moment')}
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer className="py-8 text-center text-gray-400 text-sm">
+        <p>© {new Date().getFullYear()} {isAr ? 'مدرسة الأورمان الثانوية بنين' : 'Orman Secondary School for Boys'}</p>
+      </footer>
     </div>
   );
 };

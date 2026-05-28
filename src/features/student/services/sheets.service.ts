@@ -8,7 +8,12 @@ export interface StudentData {
   grade:       string; // الصف (أول / ثاني / ثالث ثانوي)
   classroom:   string; // الفصل
   seatNumber:  string; // رقم الجلوس
+  branch?:     string; // الشعبة (علمي / أدبي) - للصف الثاني
+  message?:    string; // خانة الرسائل
   subjects:    SubjectGrade[];
+  totalGrade:  number; // المجموع الكلي للطالب
+  maxTotal:    number; // المجموع الكلي النهائي للمواد
+  percentage:  number; // النسبة المئوية
 }
 
 export interface SubjectGrade {
@@ -36,27 +41,69 @@ export const fetchAllStudents = async (): Promise<StudentData[]> => {
   const rows = text.trim().split('\n').slice(1); // احذف أول سطر (headers)
 
   // ✅ الـ columns المتوقعة في الشيت (بالترتيب):
-  // national_id | name | grade | classroom | seat_number | math | arabic | english | physics | chemistry | biology | history | geography | philosophy
+  // 0: national_id | 1: name | 2: grade | 3: classroom | 4: seat_number | 5: branch | 6: message
+  // المواد (من 7 فما فوق حسب الصف والشعبة)
   const students: StudentData[] = rows.map(row => {
     const cols = row.split(',').map(c => c.trim().replace(/^"|"$/g, ''));
 
+    const nationalId = cols[0] ?? '';
+    const name = cols[1] ?? '';
+    const grade = cols[2] ?? '';
+    const classroom = cols[3] ?? '';
+    const seatNumber = cols[4] ?? '';
+    const branch = cols[5] ?? '';
+    const message = cols[6] ?? '';
+
+    let subjects: SubjectGrade[] = [];
+
+    // تحديد المواد بناءً على الصف والشعبة
+    if (grade.includes('أول') || grade.includes('1')) {
+      subjects = [
+        { subject: 'اللغة العربية', grade: Number(cols[7]) || 0, max: 80 },
+        { subject: 'اللغة الأجنبية الأولى', grade: Number(cols[8]) || 0, max: 60 },
+        { subject: 'علوم متكاملة', grade: Number(cols[9]) || 0, max: 60 },
+        { subject: 'التاريخ', grade: Number(cols[10]) || 0, max: 40 },
+        { subject: 'الفلسفة والمنطق', grade: Number(cols[11]) || 0, max: 40 },
+        { subject: 'الرياضيات', grade: Number(cols[12]) || 0, max: 80 },
+      ];
+    } else if (grade.includes('ثاني') || grade.includes('2')) {
+      if (branch.includes('علمي')) {
+        subjects = [
+          { subject: 'اللغة العربية', grade: Number(cols[7]) || 0, max: 80 },
+          { subject: 'اللغة الأجنبية الأولى', grade: Number(cols[8]) || 0, max: 60 },
+          { subject: 'الكيمياء', grade: Number(cols[9]) || 0, max: 60 },
+          { subject: 'الأحياء', grade: Number(cols[10]) || 0, max: 60 },
+          { subject: 'الفيزياء', grade: Number(cols[11]) || 0, max: 60 },
+          { subject: 'الرياضيات', grade: Number(cols[12]) || 0, max: 80 },
+        ];
+      } else if (branch.includes('أدبي')) {
+        subjects = [
+          { subject: 'اللغة العربية', grade: Number(cols[7]) || 0, max: 80 },
+          { subject: 'اللغة الأجنبية الأولى', grade: Number(cols[8]) || 0, max: 60 },
+          { subject: 'الجغرافيا', grade: Number(cols[9]) || 0, max: 60 },
+          { subject: 'التاريخ', grade: Number(cols[10]) || 0, max: 60 },
+          { subject: 'علم النفس', grade: Number(cols[11]) || 0, max: 60 },
+          { subject: 'الرياضيات', grade: Number(cols[12]) || 0, max: 80 },
+        ];
+      }
+    }
+
+    const totalGrade = subjects.reduce((sum, s) => sum + s.grade, 0);
+    const maxTotal = subjects.reduce((sum, s) => sum + s.max, 0);
+    const percentage = maxTotal > 0 ? (totalGrade / maxTotal) * 100 : 0;
+
     return {
-      nationalId: cols[0] ?? '',
-      name:       cols[1] ?? '',
-      grade:      cols[2] ?? '',
-      classroom:  cols[3] ?? '',
-      seatNumber: cols[4] ?? '',
-      subjects: [
-        { subject: 'الرياضيات',         grade: Number(cols[5])  || 0, max: 100 },
-        { subject: 'اللغة العربية',      grade: Number(cols[6])  || 0, max: 100 },
-        { subject: 'اللغة الإنجليزية',   grade: Number(cols[7])  || 0, max: 100 },
-        { subject: 'الفيزياء',           grade: Number(cols[8])  || 0, max: 100 },
-        { subject: 'الكيمياء',           grade: Number(cols[9])  || 0, max: 100 },
-        { subject: 'الأحياء',            grade: Number(cols[10]) || 0, max: 100 },
-        { subject: 'التاريخ',            grade: Number(cols[11]) || 0, max: 100 },
-        { subject: 'الجغرافيا',          grade: Number(cols[12]) || 0, max: 100 },
-        { subject: 'الفلسفة',            grade: Number(cols[13]) || 0, max: 100 },
-      ].filter(s => s.grade > 0), // اعرض بس المواد اللي عندها درجة
+      nationalId,
+      name,
+      grade,
+      classroom,
+      seatNumber,
+      branch,
+      message,
+      subjects,
+      totalGrade,
+      maxTotal,
+      percentage
     };
   }).filter(s => s.nationalId !== '');
 
