@@ -50,6 +50,7 @@
       "title": "Al-Orman Secondary School for Boys",
       "subtitle": "We strive to graduate distinguished individuals combining academic excellence and military discipline",
       "discoverMore": "Discover More",
+      "dashboard": "Enter Portal",
       "contactUs": "Contact Us"
     },
     "features": {
@@ -106,7 +107,23 @@
         "weekend":  "Friday and Saturday: Closed"
       }
     },
-    "mapTitle": "School Location on Map"
+    "mapTitle": "School Location on Map",
+    "form": {
+      "title": "Message Us",
+      "name": "Name",
+      "namePlaceholder": "Your name",
+      "contactMethod": "Contact Method",
+      "phone": "Phone",
+      "email": "Email",
+      "phonePlaceholder": "01xxxxxxxxx",
+      "emailPlaceholder": "example@email.com",
+      "message": "Message",
+      "messagePlaceholder": "Write your message here...",
+      "send": "Send",
+      "sending": "Sending...",
+      "successMsg": "Message sent successfully, we'll contact you soon",
+      "errorMsg": "An error occurred, please try again"
+    }
   },
   "faq": {
     "meta": {

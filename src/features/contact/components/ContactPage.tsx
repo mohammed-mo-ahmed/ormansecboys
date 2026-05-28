@@ -1,7 +1,8 @@
-// ✅ Server Component كامل — يستقبل locale كـ prop بدل getLocale()
+// ✅ Server Component — يستقبل locale كـ prop
 import { getTranslations } from 'next-intl/server';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 import { JsonLd } from '@/shared/components/seo/JsonLd';
+import { ContactForm } from './ContactForm';
 import { siteConfig } from '@/config/site';
 
 interface ContactPageProps {
@@ -32,30 +33,10 @@ export const ContactPage = async ({ locale }: ContactPageProps) => {
   };
 
   const contactItems = [
-    {
-      key: 'address',
-      Icon: MapPin,
-      value: t('info.address.value'),
-      dir: undefined,
-    },
-    {
-      key: 'phone',
-      Icon: Phone,
-      value: '33350503',
-      dir: 'ltr' as const,
-    },
-    {
-      key: 'email',
-      Icon: Mail,
-      value: 'orman.sec.boys@gmail.com',
-      dir: undefined,
-    },
-    {
-      key: 'hours',
-      Icon: Clock,
-      value: null,
-      dir: undefined,
-    },
+    { key: 'address', Icon: MapPin, value: t('info.address.value'), dir: undefined },
+    { key: 'phone',   Icon: Phone,  value: '33350503',                dir: 'ltr' as const },
+    { key: 'email',   Icon: Mail,   value: 'orman.sec.boys@gmail.com', dir: undefined },
+    { key: 'hours',   Icon: Clock,  value: null,                       dir: undefined },
   ] as const;
 
   return (
@@ -65,6 +46,7 @@ export const ContactPage = async ({ locale }: ContactPageProps) => {
       <div className="min-h-screen bg-gray-50 py-16">
         <div className="max-w-7xl mx-auto px-4">
 
+          {/* Header */}
           <div className="text-center max-w-3xl mx-auto mb-12">
             <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
               {t('title')}
@@ -72,21 +54,19 @@ export const ContactPage = async ({ locale }: ContactPageProps) => {
             <p className="text-xl text-gray-600">{t('subtitle')}</p>
           </div>
 
-          <div className="mb-12">
-            <h2 className="text-2xl font-bold mb-6 text-gray-900">
-              {t('info.sectionTitle')}
-            </h2>
+          {/* Grid: معلومات + فورم */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-12">
 
+            {/* معلومات التواصل */}
             <div className="space-y-6">
+              <h2 className="text-2xl font-bold text-gray-900">{t('info.sectionTitle')}</h2>
               {contactItems.map(({ key, Icon, value, dir }) => (
                 <div key={key} className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-[#0652ba] rounded-lg flex items-center justify-center flex-shrink-0">
                     <Icon className="w-6 h-6 text-white" aria-hidden="true" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-gray-900 mb-1">
-                      {t(`info.${key}.label`)}
-                    </h3>
+                    <h3 className="font-bold text-gray-900 mb-1">{t(`info.${key}.label`)}</h3>
                     {key === 'hours' ? (
                       <>
                         <p className="text-gray-600">{t('info.hours.weekdays')}</p>
@@ -99,8 +79,12 @@ export const ContactPage = async ({ locale }: ContactPageProps) => {
                 </div>
               ))}
             </div>
+
+            {/* ✅ فورم التواصل */}
+            <ContactForm />
           </div>
 
+          {/* خريطة */}
           <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
             <div className="aspect-video w-full">
               <iframe

@@ -50,6 +50,7 @@
       "title": "مدرسة الأورمان الثانوية العسكرية بنين",
       "subtitle": "نسعى لتخريج جيل متميز يجمع بين التفوق الأكاديمي والانضباط العسكري",
       "discoverMore": "اكتشف المزيد",
+      "dashboard": "الدخول للبوابة",
       "contactUs": "تواصل معنا"
     },
     "features": {
@@ -106,7 +107,23 @@
         "weekend":  "الجمعة والسبت : مغلق"
       }
     },
-    "mapTitle": "موقع المدرسة على الخريطة"
+    "mapTitle": "موقع المدرسة على الخريطة",
+    "form": {
+      "title": "راسلنا",
+      "name": "الاسم",
+      "namePlaceholder": "اسمك الكريم",
+      "contactMethod": "طريقة التواصل",
+      "phone": "هاتف",
+      "email": "بريد إلكتروني",
+      "phonePlaceholder": "01xxxxxxxxx",
+      "emailPlaceholder": "example@email.com",
+      "message": "الرسالة",
+      "messagePlaceholder": "اكتب رسالتك هنا...",
+      "send": "إرسال",
+      "sending": "جاري الإرسال...",
+      "successMsg": "تم إرسال رسالتك بنجاح، سنتواصل معك قريباً",
+      "errorMsg": "حدث خطأ، يرجى المحاولة مرة أخرى"
+    }
   },
   "faq": {
     "meta": {
