@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       template: `%s | ${siteConfig.name[isAr ? 'ar' : 'en']}`,
     },
     description: siteConfig.description[isAr ? 'ar' : 'en'],
-    keywords: siteConfig.keywords,
+    keywords: [...siteConfig.keywords],
     authors: [{ name: 'Al-Orman School' }],
     creator: 'Al-Orman School',
     icons: {
