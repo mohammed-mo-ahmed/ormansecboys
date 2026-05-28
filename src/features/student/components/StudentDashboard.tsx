@@ -160,7 +160,7 @@ export const StudentDashboard = ({ locale }: StudentDashboardProps) => {
                     {student.nonTotalSubjects.map((s, i) => (
                       <tr key={i} className="hover:bg-gray-50 transition-colors">
                         <td className="px-6 py-4 font-medium text-gray-900">
-                          {s.id === 'english2' ? s.subject : t(`subjects.${s.id}`)}
+                          {t(`subjects.${s.id}`)}
                         </td>
                         <td className="px-6 py-4 text-center font-bold text-green-600">{s.grade}</td>
                         <td className="px-6 py-4 text-center text-gray-500">{s.max}</td>

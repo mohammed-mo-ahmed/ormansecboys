@@ -57,13 +57,20 @@ export const fetchAllStudents = async (): Promise<StudentData[]> => {
     const seatNumber = cols[4] ?? '';
     const branchCode = cols[5] ?? '';
     let message = cols[6] ?? '';
-    const secondLangName = cols[18] ?? 'لغة أجنبية ثانية';
+    const secondLangCode = cols[18] ?? '';
 
     let subjects: SubjectGrade[] = [];
     let nonTotalSubjects: SubjectGrade[] = [];
 
     // تحويل رمز الشعبة
     const branch = branchCode === '1' ? 'علمي' : branchCode === '2' ? 'أدبي' : '';
+
+    // تحويل رمز اللغة الثانية
+    const secondLangId = 
+      secondLangCode === '1' ? 'french' : 
+      secondLangCode === '2' ? 'german' : 
+      secondLangCode === '3' ? 'italian' : 
+      secondLangCode === '4' ? 'spanish' : 'english2';
 
     // تحديد المواد بناءً على الصف والشعبة
     if (grade.includes('أول') || grade.includes('1')) {
@@ -100,7 +107,7 @@ export const fetchAllStudents = async (): Promise<StudentData[]> => {
     // مواد غير مضافة للمجموع (مشتركة)
     nonTotalSubjects = [
       { id: 'religion', subject: 'تربية دينية', grade: Number(cols[13]) || 0, max: 40 },
-      { id: 'english2', subject: secondLangName, grade: Number(cols[14]) || 0, max: 40 },
+      { id: secondLangId, subject: 'لغة أجنبية ثانية', grade: Number(cols[14]) || 0, max: 40 },
       { id: 'sports', subject: 'تربية رياضية', grade: Number(cols[15]) || 0, max: 10 },
       { id: 'national_edu', subject: 'التربية الوطنية', grade: Number(cols[16]) || 0, max: 10 },
       { id: 'activity', subject: 'نشاط تربوي', grade: Number(cols[17]) || 0, max: 10 },
