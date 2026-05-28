@@ -5,13 +5,12 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build:firebase": "cross-env NEXT_OUTPUT=true next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
-    "firebase": "^12.13.0",
+
     "lucide-react": "^1.14.0",
     "next": "16.2.6",
     "next-intl": "^4.12.0",

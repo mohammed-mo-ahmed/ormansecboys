@@ -93,7 +93,7 @@ export const fetchAllStudents = async (): Promise<StudentData[]> => {
           { id: 'arabic', subject: 'اللغة العربية', grade: Number(cols[7]) || 0, max: 80 },
           { id: 'english1', subject: 'اللغة الأجنبية الأولى', grade: Number(cols[8]) || 0, max: 60 },
           { id: 'chemistry', subject: 'الكيمياء', grade: Number(cols[9]) || 0, max: 60 },
-          { id: 'biology', subject: 'الأحياء', grade: Number(cols[10]) || 0, max: 60 },
+          { id: 'history', subject: 'التاريخ', grade: Number(cols[10]) || 0, max: 60 },
           { id: 'physics', subject: 'الفيزياء', grade: Number(cols[11]) || 0, max: 60 },
           { id: 'math', subject: 'الرياضيات', grade: Number(cols[12]) || 0, max: 80 },
         ];
