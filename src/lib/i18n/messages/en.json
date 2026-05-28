@@ -209,6 +209,7 @@
   "student": {
     "portal": "Student Portal",
     "logout": "Logout",
+    "print": "Print Result",
     "grade": "Grade",
     "class": "Class",
     "seatNo": "Seat No.",

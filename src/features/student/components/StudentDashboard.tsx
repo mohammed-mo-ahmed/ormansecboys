@@ -5,7 +5,7 @@ import {
   LogOut, GraduationCap,
   Hash, Users, CreditCard,
   MessageSquare, BookOpen,
-  Award, CheckCircle2
+  Award, CheckCircle2, Printer
 } from 'lucide-react';
 import type { StudentData } from '../services/sheets.service';
 
@@ -34,6 +34,10 @@ export const StudentDashboard = ({ locale }: StudentDashboardProps) => {
     window.location.href = `/${locale}`;
   };
 
+  const handlePrint = () => {
+    window.print();
+  };
+
   if (!student) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white">
@@ -54,25 +58,49 @@ export const StudentDashboard = ({ locale }: StudentDashboardProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col" dir={isAr ? 'rtl' : 'ltr'}>
+    <div className="min-h-screen bg-gray-50 flex flex-col print:bg-white print:p-0" dir={isAr ? 'rtl' : 'ltr'}>
+      <style jsx global>{`
+        @media print {
+          @page { size: auto; margin: 15mm; }
+          body { background: white !important; }
+          .no-print { display: none !important; }
+          .print-only { display: block !important; }
+          .shadow-sm, .shadow-lg { box-shadow: none !important; border: 1px solid #eee !important; }
+          .bg-gray-50 { background: white !important; }
+          .bg-[#0652ba] { color: #0652ba !important; background: transparent !important; padding: 0 !important; border-bottom: 2px solid #0652ba !important; }
+          header { box-shadow: none !important; }
+          header h1 { color: #0652ba !important; font-size: 24px !important; }
+          header svg { color: #0652ba !important; }
+        }
+      `}</style>
+
       {/* Header */}
-      <header className="bg-[#0652ba] text-white px-6 py-4 flex items-center justify-between shadow-lg">
+      <header className="bg-[#0652ba] text-white px-6 py-4 flex items-center justify-between shadow-lg print:border-b-2 print:border-[#0652ba] print:px-0">
         <div className="flex items-center gap-3">
-          <GraduationCap className="w-8 h-8" />
-          <h1 className="text-xl font-bold">{t('portal')}</h1>
+          <GraduationCap className="w-8 h-8 print:text-[#0652ba]" />
+          <h1 className="text-xl font-bold print:text-[#0652ba]">{isAr ? 'مدرسة الأورمان الثانوية العسكرية بنين' : 'Al-Orman Secondary Military School for Boys'}</h1>
         </div>
-        <button
-          onClick={handleLogout}
-          className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-all text-sm font-semibold"
-        >
-          <LogOut className="w-4 h-4" />
-          {t('logout')}
-        </button>
+        <div className="flex gap-2 no-print">
+          <button
+            onClick={handlePrint}
+            className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-all text-sm font-semibold"
+          >
+            <Printer className="w-4 h-4" />
+            {t('print')}
+          </button>
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-all text-sm font-semibold"
+          >
+            <LogOut className="w-4 h-4" />
+            {t('logout')}
+          </button>
+        </div>
       </header>
 
-      <main className="flex-1 p-4 md:p-8 max-w-5xl mx-auto w-full space-y-6">
+      <main className="flex-1 p-4 md:p-8 max-w-5xl mx-auto w-full space-y-6 print:p-0 print:max-w-none">
         {/* Student Info Card */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 print:border-0 print:px-0">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
               <h2 className="text-2xl font-bold text-gray-900 mb-1">{student.name}</h2>
@@ -81,20 +109,20 @@ export const StudentDashboard = ({ locale }: StudentDashboardProps) => {
                 {student.branch && (
                   <>
                     <span>—</span>
-                    <span className="bg-blue-50 px-2 rounded-md">{getBranchLabel(student.branch)}</span>
+                    <span className="bg-blue-50 px-2 rounded-md print:bg-transparent">{getBranchLabel(student.branch)}</span>
                   </>
                 )}
               </div>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-2 gap-4 flex-shrink-0">
-              <div className="flex items-center gap-3 bg-gray-50 px-4 py-3 rounded-xl">
+              <div className="flex items-center gap-3 bg-gray-50 px-4 py-3 rounded-xl print:bg-transparent print:border print:border-gray-100">
                 <Users className="w-5 h-5 text-gray-400" />
                 <div>
                   <p className="text-[10px] text-gray-500 uppercase">{t('class')}</p>
                   <p className="font-bold text-gray-900">{student.classroom}</p>
                 </div>
               </div>
-              <div className="flex items-center gap-3 bg-gray-50 px-4 py-3 rounded-xl">
+              <div className="flex items-center gap-3 bg-gray-50 px-4 py-3 rounded-xl print:bg-transparent print:border print:border-gray-100">
                 <CreditCard className="w-5 h-5 text-gray-400" />
                 <div>
                   <p className="text-[10px] text-gray-500 uppercase">{t('seatNo')}</p>
@@ -105,12 +133,12 @@ export const StudentDashboard = ({ locale }: StudentDashboardProps) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 print:flex print:flex-col">
           {/* Grades Tables */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-6 print:w-full">
             {/* Total Subjects */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-              <div className="px-6 py-4 border-b border-gray-50 flex items-center gap-2">
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden print:border-gray-200">
+              <div className="px-6 py-4 border-b border-gray-50 flex items-center gap-2 print:bg-gray-50">
                 <BookOpen className="w-5 h-5 text-[#0652ba]" />
                 <h3 className="font-bold text-gray-900">{t('results')}</h3>
               </div>
@@ -118,7 +146,7 @@ export const StudentDashboard = ({ locale }: StudentDashboardProps) => {
                 <table className="w-full text-start">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-6 py-3 text-sm font-semibold text-gray-600">{t('subject')}</th>
+                      <th className="px-6 py-3 text-sm font-semibold text-gray-600 text-start">{t('subject')}</th>
                       <th className="px-6 py-3 text-center text-sm font-semibold text-gray-600">{t('score')}</th>
                       <th className="px-6 py-3 text-center text-sm font-semibold text-gray-600">{t('max')}</th>
                     </tr>
@@ -131,7 +159,7 @@ export const StudentDashboard = ({ locale }: StudentDashboardProps) => {
                         <td className="px-6 py-4 text-center text-gray-500">{s.max}</td>
                       </tr>
                     ))}
-                    <tr className="bg-blue-50/50">
+                    <tr className="bg-blue-50/50 print:bg-gray-100">
                       <td className="px-6 py-4 font-bold text-gray-900">{t('total')}</td>
                       <td className="px-6 py-4 text-center font-black text-[#0652ba] text-lg">{student.totalGrade}</td>
                       <td className="px-6 py-4 text-center font-bold text-gray-700">{student.maxTotal}</td>
@@ -142,8 +170,8 @@ export const StudentDashboard = ({ locale }: StudentDashboardProps) => {
             </div>
 
             {/* Non-Total Subjects */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-              <div className="px-6 py-4 border-b border-gray-50 flex items-center gap-2">
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden print:border-gray-200">
+              <div className="px-6 py-4 border-b border-gray-50 flex items-center gap-2 print:bg-gray-50">
                 <Award className="w-5 h-5 text-green-600" />
                 <h3 className="font-bold text-gray-900">{t('nonTotalResults')}</h3>
               </div>
@@ -151,7 +179,7 @@ export const StudentDashboard = ({ locale }: StudentDashboardProps) => {
                 <table className="w-full text-start">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-6 py-3 text-sm font-semibold text-gray-600">{t('subject')}</th>
+                      <th className="px-6 py-3 text-sm font-semibold text-gray-600 text-start">{t('subject')}</th>
                       <th className="px-6 py-3 text-center text-sm font-semibold text-gray-600">{t('score')}</th>
                       <th className="px-6 py-3 text-center text-sm font-semibold text-gray-600">{t('max')}</th>
                     </tr>
@@ -173,11 +201,10 @@ export const StudentDashboard = ({ locale }: StudentDashboardProps) => {
           </div>
 
           {/* Sidebar Stats & Message */}
-          <div className="space-y-6">
+          <div className="space-y-6 print:w-full">
             {/* Percentage Card */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 text-center">
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 text-center print:border-gray-200">
               <div className="relative inline-flex items-center justify-center w-32 h-32 mb-4">
-                {/* Background Circle */}
                 <svg className="w-full h-full transform -rotate-90">
                   <circle
                     cx="64"
@@ -188,7 +215,6 @@ export const StudentDashboard = ({ locale }: StudentDashboardProps) => {
                     fill="transparent"
                     className="text-gray-100"
                   />
-                  {/* Progress Circle */}
                   <circle
                     cx="64"
                     cy="64"
@@ -213,12 +239,12 @@ export const StudentDashboard = ({ locale }: StudentDashboardProps) => {
             </div>
 
             {/* Message Card */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 print:border-gray-200">
               <div className="flex items-center gap-2 mb-4 text-[#0652ba]">
                 <MessageSquare className="w-5 h-5" />
                 <h4 className="font-bold text-gray-900">{t('adminMessage')}</h4>
               </div>
-              <div className="bg-blue-50 rounded-xl p-4 text-sm text-blue-900 leading-relaxed italic flex items-start gap-2">
+              <div className="bg-blue-50 rounded-xl p-4 text-sm text-blue-900 leading-relaxed italic flex items-start gap-2 print:bg-transparent print:border print:border-blue-100">
                 {student.message === 'auto_congrats' && <CheckCircle2 className="w-4 h-4 mt-0.5 flex-shrink-0 text-green-600" />}
                 <span>{getMessage()}</span>
               </div>
@@ -227,7 +253,7 @@ export const StudentDashboard = ({ locale }: StudentDashboardProps) => {
         </div>
       </main>
 
-      <footer className="py-8 text-center text-gray-400 text-sm">
+      <footer className="py-8 text-center text-gray-400 text-sm print:text-gray-600 print:mt-10">
         <p>© {new Date().getFullYear()} {isAr ? 'مدرسة الأورمان الثانوية العسكرية بنين' : 'Al-Orman Secondary Military School for Boys'}</p>
       </footer>
     </div>
