@@ -171,8 +171,8 @@ export const Navigation = () => {
             <Image
               src={
                 locale === 'ar'
-                  ? '/images/logos/logo-ar.png'
-                  : '/images/logos/logo-en.png'
+                  ? '/images/logos/logo-ar.svg'
+                  : '/images/logos/logo-en.svg'
               }
               alt={locale === 'ar' ? 'شعار المدرسة' : 'School Logo'}
               width={240}
