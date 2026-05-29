@@ -21,7 +21,7 @@ export const getAlumniStories = async (): Promise<AlumniStory[]> => [
       ar: 'كاتب ومترجم وأستاذ نقد أدبي مصري، نال الدكتوراه من جامعة القاهرة. يعمل مدرسًا للنقد الأدبي بأكاديمية الفنون، وحصل على جائزة الدولة التشجيعية (2013) وجائزة الترجمة (2019).',
       en: 'An Egyptian writer, translator, and professor of literary criticism at the Academy of Arts in Cairo. He received the State Encouragement Award (2013) and the Translation Award (2019).',
     },
-    image: '/images/alumni/dr.hossam-nayel.jpeg',
+    image: '/images/alumni/Dr.Hossam-Nayel.jpeg',
     link: {
       ar: 'https://ar.wikipedia.org/wiki/%D8%AD%D8%B3%D8%A7%D9%85_%D9%86%D8%A7%D9%8A%D9%84',
       en: 'https://ar.wikipedia.org/wiki/%D8%AD%D8%B3%D8%A7%D9%85_%D9%86%D8%A7%D9%8A%D9%84',
