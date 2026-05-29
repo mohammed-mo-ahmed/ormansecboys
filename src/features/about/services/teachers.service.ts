@@ -20,7 +20,7 @@ export const groupTeachersBySubject = (teachers: Teacher[]): SubjectGroup[] => {
 };
 
 export const getTeachers = async (): Promise<Teacher[]> => [
-  { id: '1',  name: { ar: 'أ.أسماء',                  en: 'Ms. Asmaa'                  }, subject: { ar: 'مديرة المدرسة',       en: 'School Principal'       }, image: '/images/teachers/unknown.jpg' },
+  { id: '1',  name: { ar: 'أ.أسماء',                  en: 'Ms. Asmaa'                  }, subject: { ar: 'مديرة المدرسة',       en: 'School Principal'       }, image: '/images/teachers/ms.asmaa.jpg' },
   { id: '2',  name: { ar: 'أ. طارق سنجر',              en: 'Mr. Tarek Singer'            }, subject: { ar: 'اللغة العربية',       en: 'Arabic Language'         }, image: '/images/teachers/mr.tarek-singer.jpg' },
   { id: '3',  name: { ar: 'أ. أحمد طارق',              en: 'Mr. Ahmed Tarek'             }, subject: { ar: 'اللغة العربية',       en: 'Arabic Language'         }, image: '/images/teachers/unknown.jpg' },
   { id: '4',  name: { ar: 'أ. ياسر حسين',              en: 'Mr. Yasser Hussein'          }, subject: { ar: 'اللغة العربية',       en: 'Arabic Language'         }, image: '/images/teachers/unknown.jpg' },

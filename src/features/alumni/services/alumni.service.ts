@@ -8,7 +8,7 @@ export const getAlumniStories = async (): Promise<AlumniStory[]> => [
       ar: 'طبيب وأستاذ جامعي وسياسي مصري بارز، شغل مناصب بارزة في الدولة، منها عضو مجلس الشورى المصري ورئيس لجنة التعليم والبحث العلمي في البرلمان من عام 2000 حتى 2005. كما عُيِّن أمينًا عامًا للحزب الوطني عام 2011.',
       en: 'A prominent Egyptian doctor, university professor, and politician. He served as a member of the Egyptian Shura Council and headed the Education and Scientific Research Committee in Parliament from 2000 to 2005, and was appointed Secretary-General of the National Party in 2011.',
     },
-    image: '/images/alumni/dr.hossam-badrawi.jpg',
+    image: '/images/alumni/dr.hossam-badrawi.jpeg',
     link: {
       ar: 'https://www.hossambadrawi.com/%d8%af-%d8%ad%d8%b3%d8%a7%d9%85-%d8%a8%d8%af%d8%b1%d8%a7%d9%88%d9%8a-%d9%8a%d8%aa%d8%a8%d9%86%d9%8a-%d9%85%d8%a8%d8%a7%d8%af%d8%b1%d8%a9/',
       en: 'https://www.hossambadrawi.com/en/dr-hossam-badrawi-starts-an-initiative-that-begins-with-the-orman-model-school-to-develop-ancient-schools/',
