@@ -9,7 +9,7 @@ const cairo = Cairo({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://ormansecboys.web.app'),
+  metadataBase: new URL('https://ormansecboys.vercel.app'),
   icons: { icon: '/images/logos/logo.png' },
 };
 
