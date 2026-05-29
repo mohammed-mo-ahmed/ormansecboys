@@ -48,15 +48,15 @@ export const TeacherAccordion = ({ groups, locale }: TeacherAccordionProps) => {
                 {group.teachers.map(teacher => (
                   <div key={teacher.id} className="flex items-center gap-4 px-6 py-4">
                     {/* ✅ next/image */}
-                    <div className="relative w-12 h-12 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
-                      <Image
-                        src={teacher.image}
-                        alt={teacher.name[isAr ? 'ar' : 'en'] || subjectLabel}
-                        fill
-                        className="object-cover"
-                        sizes="48px"
-                      />
-                    </div>
+                    <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+  <Image
+    src={teacher.image}
+    alt={teacher.name[isAr ? 'ar' : 'en'] || subjectLabel}
+    width={48}
+    height={48}
+    className="object-cover w-12 h-12"
+  />
+</div>
                     <div>
                       <p className="font-semibold text-gray-900">
                         {teacher.name[isAr ? 'ar' : 'en'] || '—'}
