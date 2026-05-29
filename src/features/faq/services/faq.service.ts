@@ -62,33 +62,33 @@ export const getFAQItems = async (): Promise<FAQItem[]> => [
 
 export const getTestimonials = async (): Promise<Testimonial[]> => [
   {
-    id: '1',
-    name:    { ar: 'أحمد محمد',   en: 'Ahmed Mohamed' },
-    role:    { ar: 'طالب - الصف الثالث', en: 'Student - Grade 3' },
-    content: {
-      ar: 'المدرسة وفرت لي بيئة تعليمية ممتازة ساعدتني على تطوير مهاراتي الأكاديمية والقيادية. المعلمون متميزون والمرافق حديثة.',
-      en: 'The school provided me with an excellent learning environment that helped develop my academic and leadership skills. Teachers are outstanding and facilities are modern.',
-    },
-    image: '',
+  id: '1',
+  name:    { ar: 'يوسف أحمد',   en: 'Youssef Ahmed' },
+  role:    { ar: 'طالب (اتحاد الطلاب)', en: 'Student (Student Union)' },
+  content: {
+    ar: 'الشكر كله لمدرسين المدرسة الكبار زي مستر عبد اللطيف مكاوي في الرياضة ومستر إسلام محسن في الإنجليزي.. تعبوا معانا وقدموا مراجعات متميزة سهلت علينا المنهج',
+    en: 'All thanks to the great school teachers such as Mr. Abdel Latif Makawi in Mathematics and Mr. Islam Mohsen in English. They worked hard with us and provided outstanding revision sessions that made the curriculum much easier.',
   },
-  {
-    id: '2',
-    name:    { ar: 'فاطمة حسن',  en: 'Fatma Hassan' },
-    role:    { ar: 'ولية أمر',   en: 'Parent' },
-    content: {
-      ar: 'أنا سعيدة جداً بمستوى التعليم والاهتمام الذي يحصل عليه ابني. المدرسة تهتم بالجانب الأكاديمي والأخلاقي على حد سواء.',
-      en: 'I am very pleased with the level of education and attention my son receives. The school cares about both academic and moral aspects equally.',
-    },
-    image: '',
+  image: '/images/teachers/unknown.jpg',
+},
+{
+  id: '2',
+  name:    { ar: 'ميادة محسن',  en: 'Mayada Mohsen' },
+  role:    { ar: 'ولية أمر',   en: 'Parent' },
+  content: {
+    ar: 'المدرسة ممتازة وملتزمة جداً بالتعليمات والضوابط، وبتلتزم بكثافة محددة وهي 45 طالباً فقط في الفصل لضمان استيعاب الطلاب ومصلحتهم',
+    en: 'The school is excellent and highly committed to rules and regulations. It also maintains a limited class size of only 45 students per classroom to ensure better understanding and the students’ best interest.',
   },
-  {
-    id: '3',
-    name:    { ar: 'د. محمود علي',     en: 'Dr. Mahmoud Ali' },
-    role:    { ar: 'معلم - رياضيات', en: 'Teacher - Mathematics' },
-    content: {
-      ar: 'العمل في مدرسة الأورمان تجربة رائعة. الإدارة داعمة والطلاب متحمسون للتعلم. أشعر بالفخر لكوني جزء من هذه المؤسسة.',
-      en: 'Working at Al-Orman School is a wonderful experience. Management is supportive and students are eager to learn. I am proud to be part of this institution.',
-    },
-    image: '',
+  image: '/images/teachers/unknown.jpg',
+},
+{
+  id: '3',
+  name:    { ar: 'مينا مكرم',     en: 'Mina Makram' },
+  role:    { ar: 'خريج المدرسة', en: 'School Graduate' },
+  content: {
+    ar: 'مدرسة الأورمان العسكرية مدرسة عريقة تخرّج منها رجال.. الانضباط العسكري فيها بيعلم الطالب الالتزام والاعتماد على النفس من صغره',
+    en: 'Al-Orman Military School is a prestigious institution that has graduated generations of strong men. Its military discipline teaches students commitment and self-reliance from an early age.',
   },
+  image: '/images/teachers/unknown.jpg',
+},
 ];
