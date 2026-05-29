@@ -19,7 +19,7 @@ export const siteConfig = {
     'Orman Boys',
   ],
   url: 'https://ormansecboys.vercel.app', // Updated to Vercel
-  ogImage: '/images/logos/logo.png',
+  ogImage: '/images/logos/og.png',
   facebook: 'https://www.facebook.com/profile.php?id=61572987415403',
   whatsapp: 'https://api.whatsapp.com/send/?phone=201119819885',
 } as const;
