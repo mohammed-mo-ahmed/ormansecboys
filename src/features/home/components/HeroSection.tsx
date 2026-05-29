@@ -28,7 +28,7 @@ export const HeroSection = () => {
     <section className="relative h-[600px] flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0">
         <Image
-          src="/images/backgrounds/backgroundhome.png"
+          src="/images/backgrounds/backgroundhome.webp"
           alt=""
           fill
           className="object-cover"

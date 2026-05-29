@@ -18,7 +18,7 @@ export const LibraryPage = async ({ locale }: LibraryPageProps) => {
   return (
     <section className="relative flex flex-col justify-center items-center px-6 min-h-screen">
       <div className="absolute inset-0">
-        <Image src="/images/backgrounds/backgroundlibarary.png" alt="" fill className="object-cover" priority />
+        <Image src="/images/backgrounds/backgroundlibarary.webp" alt="" fill className="object-cover" priority />
         <div className="absolute inset-0 bg-white/70 backdrop-blur-sm" />
       </div>
       <div className="relative z-10 w-full max-w-7xl text-center py-20 space-y-12">
