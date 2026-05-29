@@ -255,18 +255,7 @@ export const StudentDashboard = ({ locale }: StudentDashboardProps) => {
       </main>
 
       <footer className="py-8 text-center text-gray-400 text-sm print:text-gray-600 print:mt-10">
-        {isAr ? (
-          <div className="space-y-1">
-            <p className="font-bold text-[#0652ba]">💡 ملحوظة لأفضل تنسيق عند الطباعة:</p>
-            <p>يرجى اختيار حجم الورق <span className="font-bold">Tabloid</span> أو تفعيل خيار <span className="font-bold">"Scale to fit"</span> لضمان ظهور النتيجة كاملة ومنظمة.</p>
-          </div>
-        ) : (
-          <div className="space-y-1">
-            <p className="font-bold text-[#0652ba]">💡 For best print results:</p>
-            <p>Please select <span className="font-bold">Tabloid</span> paper size or enable <span className="font-bold">"Scale to fit"</span> to ensure the result is perfectly formatted.</p>
-          </div>
-        )}
-        <p className="mt-4 opacity-50">© {new Date().getFullYear()} {isAr ? 'مدرسة الأورمان الثانوية العسكرية بنين' : 'Al-Orman Secondary Military School for Boys'}</p>
+            <p> {isAr ? 'ملحوظة لأفضل تنسيق عند الطباعة: يرجى اختيار حجم الورق Tabloid  لضمان ظهور النتيجة كاملة ومنظمة.' : 'Note for best printing layout: Please select the paper size “Tabloid” to ensure the result appears complete and well organized.'}</p>
       </footer>
     </div>
   );
