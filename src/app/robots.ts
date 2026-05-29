@@ -8,18 +8,21 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: '*',
         allow: '/',
         disallow: [
-          // ✅ Dashboard routes — مش محتاجين يتعملوا index
-          '/*/student/',
-          '/*/teacher/',
-          '/*/admin/',
-          '/*/login/',
-          '/*/forgot-password/',
-          // API routes
+          '/ar/student',
+          '/en/student',
+          '/ar/teacher',
+          '/en/teacher',
+          '/ar/admin',
+          '/en/admin',
+          '/ar/login',
+          '/en/login',
+          '/ar/forgot-password',
+          '/en/forgot-password',
           '/api/',
         ],
       },
     ],
     sitemap: `${siteConfig.url}/sitemap.xml`,
-    host:    siteConfig.url,
+    host: siteConfig.url,
   };
 }
