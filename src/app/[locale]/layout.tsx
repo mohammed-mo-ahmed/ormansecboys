@@ -65,7 +65,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       },
     },
     verification: {
-      google: 'your-google-verification-code', // User can update this later
+      google: 'google0f49fc4e0df9e60f',
     },
   };
 }

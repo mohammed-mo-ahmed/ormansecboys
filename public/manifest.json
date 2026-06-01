@@ -1,0 +1,21 @@
+{
+  "name": "مدرسة الأورمان الثانوية العسكرية بنين",
+  "short_name": "الأورمان العسكرية",
+  "description": "الموقع الرسمي لمدرسة الأورمان الثانوية العسكرية بنين",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0652ba",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

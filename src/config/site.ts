@@ -18,7 +18,7 @@ export const siteConfig = {
     'Student Results',
     'Orman Boys',
   ],
-  url: 'https://ormansecboys.vercel.app', // Updated to Vercel
+  url: 'https://orman-boys.vercel.app', // Final Production URL
   ogImage: '/images/logos/og.png',
   facebook: 'https://www.facebook.com/profile.php?id=61572987415403',
   whatsapp: 'https://api.whatsapp.com/send/?phone=201119819885',

@@ -255,7 +255,7 @@ export const StudentDashboard = ({ locale }: StudentDashboardProps) => {
       </main>
 
       <footer className="py-8 text-center text-gray-400 text-sm print:text-gray-600 print:mt-10">
-            <p> {isAr ? 'ملحوظة لأفضل تنسيق عند الطباعة: يرجى اختيار حجم الورق Tabloid  لضمان ظهور النتيجة كاملة ومنظمة.' : 'Note for best printing layout: Please select the paper size “Tabloid” to ensure the result appears complete and well organized.'}</p>
+        <p>{isAr ? 'عند الطباعة قم باختيار تنسيق حجم ورق Tabloid' : 'When printing, please choose Tabloid paper size'}</p>
       </footer>
     </div>
   );
