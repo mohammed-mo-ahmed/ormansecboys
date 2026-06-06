@@ -114,8 +114,8 @@ export const fetchAllStudents = async (): Promise<StudentData[]> => {
     nonTotalSubjects = [
       { id: 'religion', subject: 'تربية دينية', grade: Number(cols[13]) || 0, max: 40 },
       { id: secondLangId, subject: 'لغة أجنبية ثانية', grade: Number(cols[14]) || 0, max: 40 },
-      { id: 'sports', subject: 'تربية رياضية', grade: Number(cols[15]) || 0, max: 10 },
-      { id: 'national_edu', subject: 'التربية الوطنية', grade: Number(cols[16]) || 0, max: 10 },
+      { id: 'sports', subject: 'تربية رياضية', grade: Number(cols[15]) || 0, max: 25 },
+      { id: 'national_edu', subject: 'التربية الوطنية', grade: Number(cols[16]) || 0, max: 25 },
       { id: 'activity', subject: 'نشاط تربوي', grade: Number(cols[17]) || 0, max: 0 },
     ];
 
