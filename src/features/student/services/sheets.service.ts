@@ -95,7 +95,7 @@ export const fetchAllStudents = async (): Promise<StudentData[]> => {
           { id: 'chemistry', subject: 'الكيمياء', grade: Number(cols[9]) || 0, max: 60 },
           { id: 'history', subject: 'التاريخ', grade: Number(cols[10]) || 0, max: 60 },
           { id: 'physics', subject: 'الفيزياء', grade: Number(cols[11]) || 0, max: 60 },
-          { id: 'math', subject: 'الرياضيات', grade: Number(cols[12]) || 0, max: 80 },
+          { id: 'math', subject: 'الرياضيات', grade: Number(cols[12]) || 0, max: 60 },
         ];
       } else if (branchCode === '2') { // أدبي
         subjects = [
@@ -116,7 +116,7 @@ export const fetchAllStudents = async (): Promise<StudentData[]> => {
       { id: secondLangId, subject: 'لغة أجنبية ثانية', grade: Number(cols[14]) || 0, max: 40 },
       { id: 'sports', subject: 'تربية رياضية', grade: Number(cols[15]) || 0, max: 10 },
       { id: 'national_edu', subject: 'التربية الوطنية', grade: Number(cols[16]) || 0, max: 10 },
-      { id: 'activity', subject: 'نشاط تربوي', grade: Number(cols[17]) || 0, max: 10 },
+      { id: 'activity', subject: 'نشاط تربوي', grade: Number(cols[17]) || 0, max: 0 },
     ];
 
     const totalGrade = subjects.reduce((sum, s) => sum + s.grade, 0);
