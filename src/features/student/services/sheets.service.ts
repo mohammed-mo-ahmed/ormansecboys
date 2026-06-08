@@ -121,7 +121,7 @@ export const fetchAllStudents = async (): Promise<StudentData[]> => {
 
     const rawTotal = subjects.reduce((sum, s) => sum + s.grade, 0);
     const totalGrade = Math.round(rawTotal * 10) / 10; // تقريب لأقرب رقم عشري واحد
-    const maxTotal = subjects.reduce((sum, sumMax) => sumMax + sum.max, 0);
+    const maxTotal = subjects.reduce((sum, s) => sum + s.max, 0);
     const rawPercentage = maxTotal > 0 ? (totalGrade / maxTotal) * 100 : 0;
     const percentage = Math.round(rawPercentage * 10) / 10; // تقريب لأقرب رقم عشري واحد
 
