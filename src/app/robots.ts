@@ -10,8 +10,8 @@ export default function robots(): MetadataRoute.Robots {
         disallow: [
           '/ar/student',
           '/en/student',
-          '/ar/teacher',
-          '/en/teacher',
+          '/ar/teacher-login',
+          '/en/teacher-login',
           '/ar/admin',
           '/en/admin',
           '/ar/login',
