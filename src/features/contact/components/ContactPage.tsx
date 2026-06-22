@@ -28,14 +28,14 @@ export const ContactPage = async ({ locale }: ContactPageProps) => {
       addressCountry: 'EG',
     },
     telephone: '33350503',
-    email: 'orman.sec.boys@gmail.com',
+    email: 'ormansecboys@googlegroups.com',
     openingHours: 'Su-Th 08:00-14:00',
   };
 
   const contactItems = [
     { key: 'address', Icon: MapPin, value: t('info.address.value'), dir: undefined },
     { key: 'phone',   Icon: Phone,  value: '33350503',                dir: 'ltr' as const },
-    { key: 'email',   Icon: Mail,   value: 'orman.sec.boys@gmail.com', dir: undefined },
+    { key: 'email',   Icon: Mail,   value: 'ormansecboys@googlegroups.com', dir: undefined },
     { key: 'hours',   Icon: Clock,  value: null,                       dir: undefined },
   ] as const;
 
