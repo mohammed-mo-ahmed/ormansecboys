@@ -24,7 +24,7 @@ export const Footer = () => {
 
   return (
     <footer className="bg-[#0c0c14] text-white pt-12 pb-6" dir={locale === 'ar' ? 'rtl' : 'ltr'}>
-      <div className="max-w-7xl mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
 
           <div>
@@ -61,7 +61,7 @@ export const Footer = () => {
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-[#0652ba] shrink-0" />
-                <span>ormansecboys@googlegroups.com</span>
+                <span className="break-all">ormansecboys@googlegroups.com</span>
               </li>
             </ul>
           </div>
