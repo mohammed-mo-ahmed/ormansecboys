@@ -18,7 +18,7 @@ export const groupTeachersBySubject = (teachers: Teacher[]): SubjectGroup[] => {
   });
   return Array.from(map.values());
 };
-export const getCustomTeachers = async (): Promise<Teacher[]> => [
+export const getTeachers = async (): Promise<Teacher[]> => [
   { id: '1', name: { ar: 'أ. أسماء اسماعيل', en: 'Ms. Asmaa Esmail' }, subject: { ar: 'مديرة المدرسة', en: 'School Principal' }, image: '/images/teachers/ms.asmaa-esmail.webp' },
 
   // منتصر محمد عبد الجواد (ألماني/فرنسي) -> فصل اللغات
