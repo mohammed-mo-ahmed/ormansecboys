@@ -2,11 +2,7 @@
 import { getTranslations } from 'next-intl/server';
 import { Target, Users } from 'lucide-react';
 
-interface OverviewPageProps {
-  locale: string;
-}
-
-export const OverviewPage = async ({ locale }: OverviewPageProps) => {
+export const OverviewPage = async () => {
   const t = await getTranslations('about.overview');
 
   const VALUES_KEYS = ['excellence', 'discipline', 'leadership'] as const;

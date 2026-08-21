@@ -19,12 +19,6 @@ export const Navigation = () => {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const navRef = useRef<HTMLDivElement | null>(null);
 
-  // إغلاق عند تغيير الـ route
-  useEffect(() => {
-    setMobileMenuOpen(false);
-    setOpenDropdown(null);
-  }, [pathname]);
-
   // إغلاق عند الضغط خارج الـ nav
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {

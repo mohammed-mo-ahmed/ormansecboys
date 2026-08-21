@@ -1,18 +1,17 @@
 import type { MetadataRoute } from 'next';
 import { siteConfig } from '@/config/site';
 import { getNewsItems } from '@/features/news/services/news.service';
+import type { NewsItem } from '@/features/news/types/news.types';
 
-
-const safeDate = (value: any) => {
+const safeDate = (value: string | Date) => {
   const d = new Date(value);
   return isNaN(d.getTime()) ? new Date() : d;
 };
 
-
-const sanitizeNews = (items: any[]) => {
+const sanitizeNews = (items: NewsItem[]) => {
   return items.filter(item => {
-    const slug = item?.slug?.trim();
-    const date = new Date(item?.date);
+    const slug = item.slug?.trim();
+    const date = new Date(item.date);
 
     return slug && !isNaN(date.getTime());
   });

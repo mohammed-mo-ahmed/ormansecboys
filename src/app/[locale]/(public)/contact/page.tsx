@@ -31,6 +31,5 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Page({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
-  // ✅ نمرر locale كـ prop بدل ما ContactPage تستخدم getLocale()
-  return <ContactPage locale={locale} />;
+  return <ContactPage />;
 }

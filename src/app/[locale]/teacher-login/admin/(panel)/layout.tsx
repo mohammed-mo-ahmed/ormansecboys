@@ -1,8 +1,8 @@
-// Dashboard layout - Student auth protection (HttpOnly cookie, server-side)
+// src/app/[locale]/teacher-login/admin/(panel)/layout.tsx
 import { NextIntlClientProvider } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
 import { redirect } from 'next/navigation';
-import { getStudentSession } from '@/lib/auth/session';
+import { isAdminSession } from '@/lib/auth/session';
 
 export const dynamic = 'force-dynamic';
 
@@ -11,13 +11,13 @@ type Props = {
   params: Promise<{ locale: string }>;
 };
 
-export default async function DashboardLayout({ children, params }: Props) {
+export default async function AdminPanelLayout({ children, params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const session = await getStudentSession();
-  if (!session) {
-    redirect(`/${locale}/login`);
+  const ok = await isAdminSession();
+  if (!ok) {
+    redirect(`/${locale}/teacher-login`);
   }
 
   const messages = (

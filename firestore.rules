@@ -1,0 +1,10 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // الحماية الدفاعية: كل الوصول إلى البيانات يتم عبر server (Firebase Admin SDK).
+    // عملاء المتصفح لا يصلون إطلاقًا إلى Firestore مباشرة.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -2,7 +2,6 @@
 // src/features/auth/components/LoginForm.tsx
 import { useState } from 'react';
 import { IdCard, LogIn, Loader2, AlertCircle } from 'lucide-react';
-import { findStudentByNationalId } from '@/features/student/services/sheets.service';
 
 interface LoginFormProps {
   locale: string;
@@ -21,17 +20,22 @@ export const LoginForm = ({ locale }: LoginFormProps) => {
     setStatus('loading');
 
     try {
-      const data = await findStudentByNationalId(nationalId);
+      const res = await fetch('/api/student/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nationalId }),
+        credentials: 'same-origin',
+      });
 
-      if (data) {
-        // ✅ احفظ الأول، بعدين انتقل
-        sessionStorage.setItem('student_data', JSON.stringify(data));
-        // ✅ setTimeout صغير يضمن إن sessionStorage اتكتب قبل الـ navigate
+      if (res.ok) {
+        // الكوكي يتحدد في الـ server — ننتظر انتقال صغير ثم ننتقل
         setTimeout(() => {
           window.location.href = `/${locale}/student`;
         }, 100);
-      } else {
+      } else if (res.status === 404) {
         setStatus('not_found');
+      } else {
+        setStatus('error');
       }
     } catch {
       setStatus('error');
@@ -41,7 +45,6 @@ export const LoginForm = ({ locale }: LoginFormProps) => {
   return (
     <div className="min-h-screen bg-white flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
             {isAr ? 'بوابة الطالب' : 'Student Portal'}
@@ -53,7 +56,6 @@ export const LoginForm = ({ locale }: LoginFormProps) => {
 
         <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
           <form onSubmit={handleSubmit} className="space-y-5" noValidate>
-
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 {isAr ? 'الرقم القومي' : 'National ID'}
@@ -112,11 +114,9 @@ export const LoginForm = ({ locale }: LoginFormProps) => {
                 : (isAr ? 'دخول' : 'Sign In')
               }
             </button>
-
           </form>
         </div>
 
-        {/* ✅ رابط لصفحة login المعلمين — مش مفعّلة دلوقتي */}
         <p className="text-center mt-6 text-sm text-gray-500 leading-relaxed">
           {isAr ? 'هل أنت عضو هيئة تدريس أو من العاملين؟' : 'Are you a teacher or staff member?'}
           <br />
@@ -127,7 +127,6 @@ export const LoginForm = ({ locale }: LoginFormProps) => {
             {isAr ? 'الدخول كمعلم أو عضو هيئة عاملة' : 'Sign in as teacher or staff'}
           </a>
         </p>
-
       </div>
     </div>
   );

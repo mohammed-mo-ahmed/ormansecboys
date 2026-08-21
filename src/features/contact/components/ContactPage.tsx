@@ -5,11 +5,7 @@ import { JsonLd } from '@/shared/components/seo/JsonLd';
 import { ContactForm } from './ContactForm';
 import { siteConfig } from '@/config/site';
 
-interface ContactPageProps {
-  locale: string;
-}
-
-export const ContactPage = async ({ locale }: ContactPageProps) => {
+export const ContactPage = async () => {
   const t = await getTranslations('contact');
 
   const schoolSchema = {
