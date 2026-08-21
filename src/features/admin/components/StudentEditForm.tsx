@@ -206,7 +206,7 @@ export const StudentEditForm = ({ student, locale }: Props) => {
                 </select>
               </Field>
               {form.path ? (
-                <Field label={t('subjectLabel')}>
+                <Field label={tp('subjectLabel')}>
                   <select value={form.specialtySubject} onChange={e => set('specialtySubject', e.target.value)} className={selectCls}>
                     <option value="">{`${t('select')}...`}</option>
                     {PATH_SPECIALTY_SUBJECTS[form.path as StudyPath].map(s => (
