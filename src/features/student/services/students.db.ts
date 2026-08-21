@@ -22,6 +22,7 @@ interface StudentDoc {
   specialtySubject: string | null;
   pathConfirmedAt: number | null;
   pathChosenAt: number | null;
+  total: string | null;
   createdAt: number;
   updatedAt: number;
 }
@@ -45,6 +46,7 @@ function toProfile(doc: FirebaseFirestore.DocumentSnapshot): StudentProfile {
     specialtySubject: (d.specialtySubject as StudentProfile['specialtySubject']) ?? null,
     pathConfirmedAt: d.pathConfirmedAt ?? null,
     pathChosenAt: d.pathChosenAt ?? null,
+    total: d.total ?? null,
     createdAt: d.createdAt ?? Date.now(),
     updatedAt: d.updatedAt ?? Date.now(),
   };

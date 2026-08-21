@@ -42,6 +42,7 @@ const HEADER_ALIASES: Record<string, string[]> = {
   phone: ['رقم الهاتف', 'الهاتف', 'phone'],
   parentPhone: ['رقم ولي الامر', 'رقم ولي الأمر', 'parentPhone', 'parent_phone'],
   path: ['المسار', 'path'],
+  total: ['المجموع', 'total'],
 };
 
 type Row = Record<string, unknown>;
@@ -146,6 +147,7 @@ async function main() {
       specialtySubject: null,
       pathConfirmedAt: null,
       pathChosenAt: null,
+      total: pick(row, 'total'),
       updatedAt: Date.now(),
     };
 

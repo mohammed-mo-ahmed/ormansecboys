@@ -35,6 +35,7 @@ interface AdminStudentBody {
   parentPhone?: unknown;
   path?: unknown;
   specialtySubject?: unknown;
+  total?: unknown;
 }
 
 const text = (v: unknown): string | null => (v === undefined || v === null ? null : String(v).trim());
@@ -71,7 +72,7 @@ export async function PUT(req: NextRequest) {
   }
   if (name !== null) patch.name = name;
 
-  for (const field of ['code', 'classroom', 'seatNumber', 'phone', 'parentPhone'] as const) {
+  for (const field of ['code', 'classroom', 'seatNumber', 'phone', 'parentPhone', 'total'] as const) {
     if (body[field] !== undefined) patch[field] = text(body[field]);
   }
 

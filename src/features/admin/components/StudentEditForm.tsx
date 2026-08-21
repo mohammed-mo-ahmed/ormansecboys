@@ -27,6 +27,7 @@ interface FormState {
   secondLang: string;
   phone: string;
   parentPhone: string;
+  total: string;
 }
 
 const Field = ({ label, children, hint }: { label: string; children: React.ReactNode; hint?: string }) => (
@@ -57,6 +58,7 @@ export const StudentEditForm = ({ student, locale }: Props) => {
     secondLang: student.secondLang ?? '',
     phone: student.phone ?? '',
     parentPhone: student.parentPhone ?? '',
+    total: student.total ?? '',
   });
   const [saving, setSaving] = useState(false);
   const [feedback, setFeedback] = useState<{ type: 'ok' | 'err'; msg: string } | null>(null);
@@ -96,6 +98,7 @@ export const StudentEditForm = ({ student, locale }: Props) => {
       secondLang: form.secondLang || null,
       phone: form.phone.trim() || null,
       parentPhone: form.parentPhone.trim() || null,
+      total: form.total.trim() || null,
     };
     try {
       const res = await fetch('/api/admin/student', {
@@ -129,6 +132,7 @@ export const StudentEditForm = ({ student, locale }: Props) => {
           secondLang: data.student.secondLang ?? '',
           phone: data.student.phone ?? '',
           parentPhone: data.student.parentPhone ?? '',
+          total: data.student.total ?? '',
         });
       }
     } catch {
@@ -228,6 +232,9 @@ export const StudentEditForm = ({ student, locale }: Props) => {
           </Field>
           <Field label={ts('parentPhone')}>
             <input value={form.parentPhone} onChange={e => set('parentPhone', e.target.value)} dir="ltr" className={inputCls} />
+          </Field>
+          <Field label={ts('total')}>
+            <input value={form.total} onChange={e => set('total', e.target.value)} dir="ltr" className={inputCls} />
           </Field>
         </div>
 

@@ -37,6 +37,7 @@ export interface StudentProfile {
   specialtySubject: SpecialtySubject | null; // grade2
   pathConfirmedAt: number | null;
   pathChosenAt: number | null;
+  total: string | null;
   createdAt: number;
   updatedAt: number;
 }
