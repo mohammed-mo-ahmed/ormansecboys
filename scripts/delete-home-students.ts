@@ -24,7 +24,7 @@ async function main() {
   });
   
   // Delete in batches
-  const batch = db.batch();
+  let batch = db.batch();
   let count = 0;
   
   for (const doc of snapshot.docs) {
