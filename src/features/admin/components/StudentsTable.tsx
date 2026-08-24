@@ -3,7 +3,8 @@
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { Search, Printer, ChevronUp, ChevronDown, Pencil } from 'lucide-react';
+import { Search, Printer, ChevronUp, ChevronDown, Pencil, FileSpreadsheet } from 'lucide-react';
+import * as XLSX from 'xlsx';
 import type { StudentProfile, Grade, StudyPath, Branch } from '@/features/student/types/student.types';
 import { GRADES, STUDY_PATHS, BRANCHES } from '@/features/student/types/student.types';
 
@@ -93,6 +94,27 @@ export const StudentsTable = ({ students, locale, initialFilters = {} }: Props) 
   const selectCls =
     'px-3 py-2 bg-white border border-gray-200 rounded-xl text-sm font-semibold text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#0652ba]';
 
+  const exportToExcel = () => {
+    const data = filtered.map((s, i) => ({
+      '#': i + 1,
+      [t('nameCol')]: s.name ?? '',
+      [t('codeCol')]: s.code ?? '',
+      [t('seatCol')]: s.seatNumber ?? '',
+      [ts('grade')]: gradeLabel(s.grade),
+      [t('pathCol')]: pathBranchLabel(s),
+      [ts('classroom')]: s.classroom ?? '',
+      [ts('nationalId')]: s.nationalId ?? '',
+      [ts('phone')]: s.phone ?? '',
+      [ts('parentPhone')]: s.parentPhone ?? '',
+      [ts('studentType')]: s.studentType ?? '',
+    }));
+
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, t('printNote'));
+    XLSX.writeFile(wb, `${t('printNote')}.xlsx`);
+  };
+
   return (
     <div dir={isAr ? 'rtl' : 'ltr'}>
       {/* Filters toolbar */}
@@ -123,10 +145,10 @@ export const StudentsTable = ({ students, locale, initialFilters = {} }: Props) 
         <div className="flex items-center justify-between">
           <p className="text-sm font-bold text-gray-600">{t('studentsCount')}: {filtered.length}</p>
           <button
-            onClick={() => window.print()}
+            onClick={exportToExcel}
             className="flex items-center gap-2 px-4 py-2 bg-[#0652ba] text-white rounded-xl text-sm font-bold hover:bg-[#0541a5] transition-colors"
           >
-            <Printer className="w-4 h-4" />
+            <FileSpreadsheet className="w-4 h-4" />
             {t('printSheet')}
           </button>
         </div>

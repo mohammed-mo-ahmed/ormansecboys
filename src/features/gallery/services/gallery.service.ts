@@ -6,20 +6,20 @@ export const getGalleryPhotos = async (): Promise<GalleryItem[]> => [
   {
     id: '1',
     type: 'image',
-    url: '/images/gallery/1.webp',
-    title: { ar: 'انتخابات المكتب التنفيذي', en: 'Executive Office Elections' },
+    url: '/images/gallery/1.jpg',
+    title: { ar: 'تكريم الطلاب', en: 'Student Recognition' },
   },
   {
     id: '2',
     type: 'image',
-    url: '/images/gallery/2.webp',
-    title: { ar: 'انتخابات المكتب التنفيذي', en: 'Executive Office Elections' },
+    url: '/images/gallery/2.jpg',
+    title: { ar: 'مباراة كرة قدم', en: 'Football Match' },
   },
   {
     id: '3',
     type: 'image',
-    url: '/images/gallery/3.webp',
-    title: { ar: 'قاعة المحاضرات', en: 'Lecture Hall' },
+    url: '/images/gallery/3.jpg',
+    title: { ar: 'زراعة أشجار', en: 'Tree Planting' },
   },
   {
     id: '4',
