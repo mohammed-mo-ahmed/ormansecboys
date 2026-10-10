@@ -87,7 +87,10 @@
     "title": "Gallery",
     "subtitle": "Explore photos and videos of school life and events",
     "tabs": { "photos": "Photos", "videos": "Videos" },
-    "closeLabel": "Close"
+    "closeLabel": "Close",
+    "jumpToYear": "Jump to the year",
+    "nextPhoto": "Next photo",
+    "prevPhoto": "Previous photo"
   },
   "contact": {
     "meta": {

@@ -87,7 +87,10 @@
     "title": "المعرض",
     "subtitle": "استكشف صور وفيديوهات الحياة المدرسية والفعاليات",
     "tabs": { "photos": "الصور", "videos": "الفيديوهات" },
-    "closeLabel": "إغلاق"
+    "closeLabel": "إغلاق",
+    "jumpToYear": "انتقل إلى سنة",
+    "nextPhoto": "الصورة التالية",
+    "prevPhoto": "الصورة السابقة"
   },
   "contact": {
     "meta": {

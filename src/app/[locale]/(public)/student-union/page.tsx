@@ -11,7 +11,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const t = await getTranslations({
     locale,
-    namespace: 'about.studentUnion.meta',
+    namespace: 'activities.studentUnion.meta',
   });
 
   return {

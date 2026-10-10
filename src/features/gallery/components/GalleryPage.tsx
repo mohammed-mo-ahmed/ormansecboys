@@ -76,6 +76,9 @@ export const GalleryPage = async ({ locale }: GalleryPageProps) => {
               photos: t('tabs.photos'),
               videos: t('tabs.videos'),
               closeLabel: t('closeLabel'),
+              jumpToYear: t('jumpToYear'),
+              nextPhoto: t('nextPhoto'),
+              prevPhoto: t('prevPhoto'),
             }}
           />
 

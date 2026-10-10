@@ -1,8 +1,9 @@
-'use client'; // ✅ فقط هنا — tabs + lightbox state
-import { useState } from 'react';
+'use client'; // ✅ هنا فقط — tabs + year nav + lightbox state
+import { useMemo, useState } from 'react';
 import Image from 'next/image';
-import { ImageIcon, Video } from 'lucide-react';
+import { CalendarDays, ImageIcon, Video } from 'lucide-react';
 import { LightboxModal } from './LightboxModal';
+import { formatGalleryDate } from '../utils/galleryDate';
 import type { GalleryItem, GalleryVideo } from '../types/gallery.types';
 
 interface GalleryClientProps {
@@ -13,18 +14,72 @@ interface GalleryClientProps {
     photos: string;
     videos: string;
     closeLabel: string;
+    jumpToYear: string;
+    nextPhoto: string;
+    prevPhoto: string;
   };
 }
 
+const GRID_SIZES =
+  '(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw';
+
 export const GalleryClient = ({ photos, videos, locale, labels }: GalleryClientProps) => {
   const [activeTab, setActiveTab] = useState<'photos' | 'videos'>('photos');
-  const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const isAr = locale === 'ar';
 
+  const featured = useMemo(() => photos.filter(p => p.featured), [photos]);
+  const dated = useMemo(() => photos.filter(p => !p.featured), [photos]);
+
+  const years = useMemo(
+    () => Array.from(new Set(dated.map(p => p.year).filter((y): y is number => !!y))).sort((a, b) => b - a),
+    [dated],
+  );
+
+  const grouped = useMemo(
+    () => years.map(year => ({ year, items: dated.filter(p => p.year === year) })),
+    [dated, years],
+  );
+
+  const jumpToYear = (year: number) => {
+    document.getElementById(`gallery-year-${year}`)?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  };
+
+  const caption = (item: GalleryItem) =>
+    item.date ? formatGalleryDate(item.date, isAr ? 'ar' : 'en') : item.title[isAr ? 'ar' : 'en'];
+
+  const renderCard = (item: GalleryItem, index: number) => (
+    <div
+      key={item.id}
+      className="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all overflow-hidden border border-gray-100"
+    >
+      <button
+        onClick={() => setSelectedIndex(index)}
+        className="relative aspect-square w-full block overflow-hidden focus:outline-none focus:ring-2 focus:ring-[#0652ba] focus:ring-offset-2"
+        aria-label={caption(item)}
+      >
+        <Image
+          src={item.thumbUrl ?? item.url}
+          alt={caption(item)}
+          fill
+          className="object-cover group-hover:scale-105 transition-transform duration-300"
+          sizes={GRID_SIZES}
+        />
+      </button>
+      <div className="px-3 py-2.5 flex items-center justify-center gap-1.5">
+        <CalendarDays className="w-3.5 h-3.5 text-[#0652ba] shrink-0" aria-hidden="true" />
+        <p className="text-sm font-semibold text-gray-700 truncate">{caption(item)}</p>
+      </div>
+    </div>
+  );
+
   return (
-    <>
+    <div dir={isAr ? 'rtl' : 'ltr'}>
       {/* Tab Switcher */}
-      <div className="flex justify-center gap-4 mb-12">
+      <div className="flex justify-center gap-4 mb-8">
         {(['photos', 'videos'] as const).map(tab => (
           <button
             key={tab}
@@ -44,47 +99,56 @@ export const GalleryClient = ({ photos, videos, locale, labels }: GalleryClientP
         ))}
       </div>
 
-      {/* Photos Grid */}
       {activeTab === 'photos' && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {photos.map(item => (
-            <button
-              key={item.id}
-              onClick={() => setSelectedItem(item)}
-              className="group relative aspect-square rounded-xl overflow-hidden 
-              shadow-lg hover:shadow-xl transition-all focus:outline-none 
-              focus:ring-2 focus:ring-[#0652ba] focus:ring-offset-2"
-              aria-label={item.title[isAr ? 'ar' : 'en'] || undefined}
+        <>
+          {/* Featured (Library + Sports Field) */}
+          <div className="grid grid-cols-2 gap-4 mb-10 max-w-2xl mx-auto">
+            {featured.map((item, i) => renderCard(item, i))}
+          </div>
+
+          {/* Year Nav */}
+          {years.length > 0 && (
+            <nav
+              aria-label={labels.jumpToYear}
+              className="mb-10"
             >
-              {/* ✅ next/image مع fill */}
-              <Image
-                src={item.url}
-                alt={item.title[isAr ? 'ar' : 'en']}
-                fill
-                className="object-cover group-hover:scale-110 transition-transform duration-300"
-                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-              />
-              {/* Hover overlay */}
-              {item.title[isAr ? 'ar' : 'en'] && (
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent 
-                opacity-0 group-hover:opacity-100 transition-opacity">
-                  <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <p className="text-white font-semibold text-sm">
-                      {item.title[isAr ? 'ar' : 'en']}
-                    </p>
-                  </div>
-                </div>
-              )}
-            </button>
+              <div className="flex gap-2 overflow-x-auto pb-1 snap-x">
+                {years.map(year => (
+                  <button
+                    key={year}
+                    onClick={() => jumpToYear(year)}
+                    aria-label={`${labels.jumpToYear} ${year}`}
+                    className="snap-start shrink-0 px-5 py-2 rounded-full bg-white border border-gray-200 hover:border-[#0652ba] hover:bg-[#0652ba] hover:text-white text-gray-800 font-bold transition-all"
+                  >
+                    {year}
+                  </button>
+                ))}
+              </div>
+            </nav>
+          )}
+
+          {/* Year Sections */}
+          {grouped.map(({ year, items }) => (
+            <section key={year} id={`gallery-year-${year}`} className="mb-12 scroll-mt-24">
+              <div className="flex items-center gap-4 mb-5">
+                <h2 className="text-2xl md:text-3xl font-bold text-[#0652ba]">{year}</h2>
+                <div className="flex-1 h-px bg-[#0652ba]/20" />
+                <span className="text-sm font-medium text-gray-500">
+                  {items.length}
+                </span>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                {items.map(item => renderCard(item, featured.length + dated.indexOf(item)))}
+              </div>
+            </section>
           ))}
-        </div>
+        </>
       )}
 
       {/* Videos Grid */}
       {activeTab === 'videos' && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {videos.length === 0 ? (
-            // ✅ Empty state بدل placeholder فارغ
             <div className="col-span-full text-center py-20 text-gray-400">
               <Video className="w-16 h-16 mx-auto mb-4 opacity-30" />
               <p className="text-lg">{isAr ? 'قريباً...' : 'Coming soon...'}</p>
@@ -93,8 +157,7 @@ export const GalleryClient = ({ photos, videos, locale, labels }: GalleryClientP
             videos.map(video => (
               <div
                 key={video.id}
-                className="bg-white rounded-xl shadow-lg overflow-hidden 
-                hover:shadow-xl transition-all border border-gray-100"
+                className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all border border-gray-100"
               >
                 <div className="relative h-48 bg-gray-200">
                   <Image
@@ -127,13 +190,20 @@ export const GalleryClient = ({ photos, videos, locale, labels }: GalleryClientP
       )}
 
       {/* Lightbox */}
-      {selectedItem && (
+      {selectedIndex !== null && (
         <LightboxModal
-          item={selectedItem}
-          closeLabel={labels.closeLabel}
-          onClose={() => setSelectedItem(null)}
+          items={photos}
+          index={selectedIndex}
+          locale={locale}
+          labels={{
+            closeLabel: labels.closeLabel,
+            nextPhoto: labels.nextPhoto,
+            prevPhoto: labels.prevPhoto,
+          }}
+          onClose={() => setSelectedIndex(null)}
+          onNavigate={setSelectedIndex}
         />
       )}
-    </>
+    </div>
   );
 };
