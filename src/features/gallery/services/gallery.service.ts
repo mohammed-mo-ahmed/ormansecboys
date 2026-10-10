@@ -67,6 +67,57 @@ export const getGalleryPhotos = async (): Promise<GalleryItem[]> => {
   return [...FEATURED_ITEMS, ...items];
 };
 
-export const getGalleryVideos = async (): Promise<GalleryVideo[]> => [
-  // 🔜 إضافة فيديوهات مستقبلاً
+const VIDEOS: GalleryVideo[] = [
+  {
+    id: 'VAG0Fg1StgQ',
+    thumbnail: '/images/gallery/videos/VAG0Fg1StgQ.jpg',
+    embedSrc: 'https://www.youtube.com/embed/VAG0Fg1StgQ',
+    duration: '',
+    title: {
+      ar: 'مدرسة الأورمان الثانوية العسكرية — يوم عالمي',
+      en: 'Al-Orman Secondary Military School — International Day',
+    },
+  },
+  {
+    id: 'fbaxbFBq7fA',
+    thumbnail: '/images/gallery/videos/fbaxbFBq7fA.jpg',
+    embedSrc: 'https://www.youtube.com/embed/fbaxbFBq7fA',
+    duration: '',
+    title: {
+      ar: 'تكثيف أمني بمحيط لجان الاستفتاء بمدرسة الأورمان — اليوم الثاني',
+      en: 'Police Presence Around Al-Orman Referendum Polling — Day 2',
+    },
+  },
+  {
+    id: 'Y2OkHbsLPRE',
+    thumbnail: '/images/gallery/videos/Y2OkHbsLPRE.jpg',
+    embedSrc: 'https://www.youtube.com/embed/Y2OkHbsLPRE',
+    duration: '',
+    title: {
+      ar: 'تحية العلم بمدرسة الأورمان الثانوية بنين بالدقي',
+      en: 'Flag Salute at Al-Orman Secondary School for Boys',
+    },
+  },
+  {
+    id: 'PmF-_-uzb5Q',
+    thumbnail: '/images/gallery/videos/PmF-_-uzb5Q.jpg',
+    embedSrc: 'https://www.youtube.com/embed/PmF-_-uzb5Q',
+    duration: '',
+    title: {
+      ar: 'آراء طلاب مدرسة الأورمان في امتحان الكيمياء والجغرافيا',
+      en: 'Students\' Views on the Chemistry and Geography Exams',
+    },
+  },
+  {
+    id: 'a90g1H6UYgk',
+    thumbnail: '/images/gallery/videos/a90g1H6UYgk.jpg',
+    embedSrc: 'https://www.youtube.com/embed/a90g1H6UYgk',
+    duration: '',
+    title: {
+      ar: 'الهدوء يسود لجان الأورمان الثانوية بالدقي',
+      en: 'Calm Prevails at Al-Orman Exam Committees',
+    },
+  },
 ];
+
+export const getGalleryVideos = async (): Promise<GalleryVideo[]> => VIDEOS;

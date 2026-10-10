@@ -3,6 +3,7 @@ import { useMemo, useState } from 'react';
 import Image from 'next/image';
 import { CalendarDays, ImageIcon, Video } from 'lucide-react';
 import { LightboxModal } from './LightboxModal';
+import { VideoLightbox } from './VideoLightbox';
 import { formatGalleryDate } from '../utils/galleryDate';
 import type { GalleryItem, GalleryVideo } from '../types/gallery.types';
 
@@ -26,6 +27,7 @@ const GRID_SIZES =
 export const GalleryClient = ({ photos, videos, locale, labels }: GalleryClientProps) => {
   const [activeTab, setActiveTab] = useState<'photos' | 'videos'>('photos');
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [selectedVideo, setSelectedVideo] = useState<number | null>(null);
   const isAr = locale === 'ar';
 
   const featured = useMemo(() => photos.filter(p => p.featured), [photos]);
@@ -154,22 +156,23 @@ export const GalleryClient = ({ photos, videos, locale, labels }: GalleryClientP
               <p className="text-lg">{isAr ? 'قريباً...' : 'Coming soon...'}</p>
             </div>
           ) : (
-            videos.map(video => (
-              <div
+            videos.map((video, index) => (
+              <button
                 key={video.id}
-                className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all border border-gray-100"
+                onClick={() => setSelectedVideo(index)}
+                className="group text-start bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all border border-gray-100 focus:outline-none focus:ring-2 focus:ring-[#0652ba] focus:ring-offset-2"
               >
-                <div className="relative h-48 bg-gray-200">
+                <div className="relative h-48 bg-gray-200 overflow-hidden">
                   <Image
                     src={video.thumbnail}
                     alt={video.title[isAr ? 'ar' : 'en']}
                     fill
-                    className="object-cover"
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                    <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center">
-                      <div className="w-0 h-0 border-y-8 border-y-transparent border-l-[14px] border-l-[#0652ba] ml-1" />
+                    <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center group-hover:bg-[#0652ba] group-hover:scale-110 transition-all">
+                      <div className="w-0 h-0 border-y-8 border-y-transparent border-l-[14px] border-l-[#0652ba] group-hover:border-l-white ml-1" />
                     </div>
                   </div>
                   {video.duration && (
@@ -178,18 +181,13 @@ export const GalleryClient = ({ photos, videos, locale, labels }: GalleryClientP
                     </div>
                   )}
                 </div>
-                <div className="p-6">
-                  <h3 className="text-lg font-bold text-gray-900">
-                    {video.title[isAr ? 'ar' : 'en']}
-                  </h3>
-                </div>
-              </div>
+              </button>
             ))
           )}
         </div>
       )}
 
-      {/* Lightbox */}
+      {/* Photos Lightbox */}
       {selectedIndex !== null && (
         <LightboxModal
           items={photos}
@@ -202,6 +200,22 @@ export const GalleryClient = ({ photos, videos, locale, labels }: GalleryClientP
           }}
           onClose={() => setSelectedIndex(null)}
           onNavigate={setSelectedIndex}
+        />
+      )}
+
+      {/* Video Player */}
+      {selectedVideo !== null && (
+        <VideoLightbox
+          videos={videos}
+          index={selectedVideo}
+          locale={locale}
+          labels={{
+            closeLabel: labels.closeLabel,
+            nextPhoto: labels.nextPhoto,
+            prevPhoto: labels.prevPhoto,
+          }}
+          onClose={() => setSelectedVideo(null)}
+          onNavigate={setSelectedVideo}
         />
       )}
     </div>
